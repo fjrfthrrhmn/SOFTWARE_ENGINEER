@@ -1,0 +1,141 @@
+
+@startuml
+title StudentConnect - Sequence Diagram Pengelolaan Jadwal Perkuliahan Admin
+
+autonumber
+skinparam shadowing false
+
+actor "Admin" as Admin
+boundary "UI" as UI
+control "AuthService" as AuthService
+control "JadwalService" as JadwalService
+database "DB" as DB
+
+== Login ==
+
+Admin -> UI: Mengisi identifier dan password
+activate UI
+UI -> AuthService: login(identifier, password)
+activate AuthService
+
+AuthService -> DB: SELECT * FROM Pengguna\nWHERE identifier = ?
+activate DB
+DB --> AuthService: return data Pengguna
+deactivate DB
+
+alt Kredensial valid dan akun aktif
+    AuthService --> UI: return {data: pengguna,\nmessage: "Login berhasil"}
+    UI --> Admin: Menampilkan halaman Admin
+else Kredensial tidak valid
+    AuthService --> UI: return {data: null,\nmessage: "Kredensial tidak valid"}
+    UI --> Admin: Menampilkan pesan kesalahan
+else Akun tidak aktif
+    AuthService --> UI: return {data: null,\nmessage: "Akun tidak aktif"}
+    UI --> Admin: Menampilkan pesan kesalahan
+end
+
+deactivate AuthService
+deactivate UI
+
+== Menambahkan Jadwal Perkuliahan ==
+
+Admin -> UI: Memilih menu Tambah Jadwal
+activate UI
+UI --> Admin: Menampilkan formulir jadwal
+Admin -> UI: Mengisi dan mengirim data jadwal
+
+UI -> JadwalService: menambahkanJadwal(jadwal)
+activate JadwalService
+
+JadwalService -> DB: INSERT INTO JadwalKuliah
+activate DB
+DB --> JadwalService: return data JadwalKuliah
+deactivate DB
+
+alt Jadwal berhasil ditambahkan
+    JadwalService --> UI: return {data: jadwal,\nmessage: "Jadwal berhasil ditambahkan"}
+    UI --> Admin: Menampilkan pesan berhasil
+else Jadwal gagal ditambahkan
+    JadwalService --> UI: return {data: null,\nmessage: "Jadwal gagal ditambahkan"}
+    UI --> Admin: Menampilkan pesan kesalahan
+end
+
+deactivate JadwalService
+deactivate UI
+
+== Melihat Daftar Jadwal Perkuliahan ==
+
+Admin -> UI: Memilih menu Jadwal Perkuliahan
+activate UI
+UI -> JadwalService: lihatJadwalPerkuliahan()
+activate JadwalService
+
+JadwalService -> DB: SELECT * FROM JadwalKuliah
+activate DB
+DB --> JadwalService: return data JadwalKuliah
+deactivate DB
+
+alt Jadwal ditemukan
+    JadwalService --> UI: return {data: jadwalList,\nmessage: "Daftar jadwal berhasil ditampilkan"}
+    UI --> Admin: Menampilkan daftar jadwal
+else Jadwal kosong
+    JadwalService --> UI: return {data: [],\nmessage: "Belum ada jadwal perkuliahan"}
+    UI --> Admin: Menampilkan informasi jadwal kosong
+end
+
+deactivate JadwalService
+deactivate UI
+
+== Mengubah Jadwal Perkuliahan ==
+
+Admin -> UI: Memilih jadwal dan menu Ubah
+activate UI
+UI --> Admin: Menampilkan formulir dengan data jadwal
+Admin -> UI: Mengubah dan mengirim data jadwal
+
+UI -> JadwalService: mengubahJadwal(jadwal)
+activate JadwalService
+
+JadwalService -> DB: UPDATE JadwalKuliah\nSET data jadwal WHERE id = ?
+activate DB
+DB --> JadwalService: return status perubahan
+deactivate DB
+
+alt Jadwal berhasil diubah
+    JadwalService --> UI: return {data: true,\nmessage: "Jadwal berhasil diubah"}
+    UI --> Admin: Menampilkan pesan berhasil
+else Jadwal gagal diubah
+    JadwalService --> UI: return {data: false,\nmessage: "Jadwal gagal diubah"}
+    UI --> Admin: Menampilkan pesan kesalahan
+end
+
+deactivate JadwalService
+deactivate UI
+
+== Menghapus Jadwal Perkuliahan ==
+
+Admin -> UI: Memilih jadwal dan menu Hapus
+activate UI
+UI --> Admin: Meminta konfirmasi penghapusan
+Admin -> UI: Mengonfirmasi penghapusan
+
+UI -> JadwalService: menghapusJadwal(id)
+activate JadwalService
+
+JadwalService -> DB: DELETE FROM JadwalKuliah\nWHERE id = ?
+activate DB
+DB --> JadwalService: return status penghapusan
+deactivate DB
+
+alt Jadwal berhasil dihapus
+    JadwalService --> UI: return {data: true,\nmessage: "Jadwal berhasil dihapus"}
+    UI --> Admin: Menampilkan pesan berhasil
+else Jadwal gagal dihapus
+    JadwalService --> UI: return {data: false,\nmessage: "Jadwal gagal dihapus"}
+    UI --> Admin: Menampilkan pesan kesalahan
+end
+
+deactivate JadwalService
+deactivate UI
+
+@enduml

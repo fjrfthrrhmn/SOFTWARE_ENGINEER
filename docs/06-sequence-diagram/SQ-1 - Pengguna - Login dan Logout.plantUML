@@ -1,0 +1,54 @@
+@startuml
+title StudentConnect - Sequence Diagram Login dan Logout All Role
+
+autonumber
+skinparam shadowing false
+
+actor "Pengguna\n(Mahasiswa/Dosen/Admin)" as User
+boundary "UI" as UI
+control "AuthService" as Pengguna
+database "DB" as DB
+
+== Login ==
+
+User -> UI: Mengisi identifier dan password
+activate UI
+UI -> Pengguna: login(identifier, password)
+activate Pengguna
+
+Pengguna -> DB: SELECT * from Pengguna WHERE indetifier = ?
+activate DB
+DB --> Pengguna: return data Pengguna
+deactivate DB
+
+alt Kredensial valid dan akun aktif
+    Pengguna --> UI: return {data: pengguna, message: "Login berhasil"}
+    UI --> User: Menampilkan halaman sesuai role
+else Kredensial tidak valid
+    Pengguna --> UI: return {data: null, message: "Kredensial tidak valid"}
+    UI --> User: Menampilkan pesan kesalahan
+else Akun tidak aktif
+    Pengguna --> UI: return {data: null, message: "Akun tidak aktif"}
+    deactivate Pengguna
+    UI --> User: Menampilkan pesan kesalahan
+    deactivate UI
+end
+
+
+== Logout ==
+
+opt Pengguna telah login
+    User -> UI: Memilih Logout
+    activate UI
+    UI -> Pengguna: logout()
+    activate Pengguna
+
+    Pengguna -> Pengguna: Mengakhiri sesi pengguna
+    Pengguna --> UI: return {data: null, message: "Logout berhasil"}
+    deactivate Pengguna
+    UI --> User: Mengarahkan ke halaman Login
+
+    deactivate UI
+end
+
+@enduml

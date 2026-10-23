@@ -1,0 +1,49 @@
+@startuml
+title StudentConnect - Sequence Diagram Login hingga Melihat Jadwal Kuliah Mahasiswa
+
+autonumber
+skinparam shadowing false
+
+actor "Mahasiswa" as Mahasiswa
+boundary "UI" as UI
+control "AuthService" as AuthService
+control "JadwalService" as JadwalService
+database "DB" as DB
+
+== Login ==
+
+Mahasiswa -> UI: Mengisi NIM dan password
+activate UI
+UI -> AuthService: login(nim, password)
+activate AuthService
+
+AuthService -> DB: SELECT * FROM Pengguna \nWHERE identifier = ?
+activate DB
+DB --> AuthService: return data Pengguna
+deactivate DB
+
+alt Kredensial valid dan akun aktif
+    AuthService --> UI: return {data: pengguna, message: "Login berhasil"}
+    UI --> Mahasiswa: Menampilkan halaman Mahasiswa
+
+    == Melihat Jadwal Kuliah ==
+
+    Mahasiswa -> UI: Memilih menu Jadwal Kuliah
+    UI -> JadwalService: lihatJadwalKuliah()
+    activate JadwalService
+
+    JadwalService -> DB: SELECT * FROM JadwalKuliah \nWHERE ProgramStudi = ?
+    activate DB
+    DB --> JadwalService: return data JadwalKuliah
+    deactivate DB
+
+    alt Jadwal ditemukan
+        JadwalService --> UI: return {data: jadwalList, \nmessage: "Jadwal kuliah berhasil ditampilkan"}
+        UI --> Mahasiswa: Menampilkan daftar jadwal kuliah
+    else Jadwal kosong
+        JadwalService --> UI: return {data: [], \nmessage: "Belum ada jadwal kuliah tersedia"}
+        UI --> Mahasiswa: Menampilkan informasi jadwal kosong
+    end
+
+    deactivate JadwalService
+@enduml

@@ -1,0 +1,63 @@
+
+@startuml
+title StudentConnect - Sequence Diagram Login hingga Melihat Jadwal Mengajar Dosen
+
+autonumber
+skinparam shadowing false
+
+actor "Dosen" as Dosen
+boundary "UI" as UI
+control "AuthService" as AuthService
+control "JadwalService" as JadwalService
+database "DB" as DB
+
+== Login ==
+
+Dosen -> UI: Mengisi identifier dan password
+activate UI
+UI -> AuthService: login(identifier, password)
+activate AuthService
+
+AuthService -> DB: SELECT * FROM Pengguna\nWHERE identifier = ?
+activate DB
+DB --> AuthService: return data Pengguna
+deactivate DB
+
+alt Kredensial valid dan akun aktif
+    AuthService --> UI: return {data: pengguna,\nmessage: "Login berhasil"}
+    UI --> Dosen: Menampilkan halaman Dosen
+else Kredensial tidak valid
+    AuthService --> UI: return {data: null,\nmessage: "Kredensial tidak valid"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+else Akun tidak aktif
+    AuthService --> UI: return {data: null,\nmessage: "Akun tidak aktif"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+end
+
+deactivate AuthService
+deactivate UI
+
+== Melihat Jadwal Mengajar ==
+
+Dosen -> UI: Memilih menu Jadwal Mengajar
+activate UI
+UI -> JadwalService: lihatJadwalMengajar()
+activate JadwalService
+
+JadwalService -> DB: SELECT * FROM JadwalKuliah\nWHERE Dosen = ?
+activate DB
+DB --> JadwalService: return data JadwalKuliah
+deactivate DB
+
+alt Jadwal mengajar ditemukan
+    JadwalService --> UI: return {data: jadwalList,\nmessage: "Jadwal mengajar berhasil ditampilkan"}
+    UI --> Dosen: Menampilkan daftar jadwal mengajar
+else Jadwal mengajar kosong
+    JadwalService --> UI: return {data: [],\nmessage: "Belum ada jadwal mengajar tersedia"}
+    UI --> Dosen: Menampilkan informasi jadwal kosong
+end
+
+deactivate JadwalService
+deactivate UI
+
+@enduml

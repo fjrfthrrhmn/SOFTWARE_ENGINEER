@@ -1,0 +1,155 @@
+@startuml
+title StudentConnect - Class Diagram
+
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam shadowing false
+hide circle
+top to bottom direction
+
+' ==========================================
+' DOMAIN PENGGUNA
+' ==========================================
+
+package "Domain Pengguna" {
+
+  class Pengguna {
+    +id: BIGINT
+    +email: String
+    +passwordHash: String
+    +role: String
+    +status: String
+    +createdAt: DateTime
+    +updatedAt: DateTime
+    --
+    +login(identifier: String, password: String): boolean
+    +logout(): void
+  }
+
+  class Mahasiswa {
+    +id: BIGINT
+    +nim: String
+    +nama: String
+    +angkatan: int
+    +createdAt: DateTime
+    +updatedAt: DateTime
+    --
+    +lihatJadwalKuliah(): List<JadwalKuliah>
+    +lihatDaftarMateri(): List<Materi>
+    +lihatDetailMateri(id: BIGINT): Materi
+  }
+
+  class Dosen {
+    +id: BIGINT
+    +kode: String
+    +nama: String
+    +createdAt: DateTime
+    +updatedAt: DateTime
+    --
+    +lihatJadwalMengajar(): List<JadwalKuliah>
+    +lihatDaftarMateri(): List<Materi>
+    +lihatDetailMateri(id: BIGINT): Materi
+    +menambahkanMateri(materi: Materi): Materi
+    +mengubahMateri(materi: Materi): boolean
+    +menghapusMateri(id: BIGINT): boolean
+  }
+
+  class Admin {
+    +id: BIGINT
+    +nama: String
+    +createdAt: DateTime
+    +updatedAt: DateTime
+    --
+    +lihatDaftarPengguna(): List<Pengguna>
+    +menambahkanPengguna(pengguna: Pengguna): Pengguna
+    +mengubahPengguna(pengguna: Pengguna): boolean
+    +menonaktifkanPengguna(id: BIGINT): boolean
+    +lihatJadwalPerkuliahan(): List<JadwalKuliah>
+    +menambahkanJadwal(jadwal: JadwalKuliah): JadwalKuliah
+    +mengubahJadwal(jadwal: JadwalKuliah): boolean
+    +menghapusJadwal(id: BIGINT): boolean
+  }
+}
+
+' ==========================================
+' DOMAIN AKADEMIK
+' ==========================================
+
+package "Domain Akademik" {
+
+  class ProgramStudi {
+    +id: BIGINT
+    +nama: String
+    +createdAt: DateTime
+    +updatedAt: DateTime
+  }
+
+  class MataKuliah {
+    +id: BIGINT
+    +kode: String
+    +nama: String
+    +sks: int
+    +deskripsi: String
+    +createdAt: DateTime
+    +updatedAt: DateTime
+  }
+
+  class Kurikulum {
+    +id: BIGINT
+    +createdAt: DateTime
+    +updatedAt: DateTime
+  }
+  
+  
+  class JadwalKuliah {
+    +id: BIGINT
+    +hari: int
+    +jamMulai: Time
+    +jamSelesai: Time
+    +ruangan: String
+    +status: String
+    +createdAt: DateTime
+    +updatedAt: DateTime
+  }
+  
+    class Materi {
+    +id: BIGINT
+    +judul: String
+    +deskripsi: String
+    +fileUrl: String
+    +createdAt: DateTime
+    +updatedAt: DateTime
+  }
+}
+
+' ==========================================
+' RELASI PENGGUNA DAN PROFIL
+' ==========================================
+
+Pengguna "1" *-- "1" Mahasiswa
+Pengguna "1" *-- "1" Dosen
+Pengguna "1" *-- "1" Admin
+
+' ==========================================
+' RELASI AKADEMIK
+' ==========================================
+
+ProgramStudi "1" -- "0..*" Mahasiswa
+
+ProgramStudi "1" -- "0..*" Kurikulum
+MataKuliah "1" -- "0..*" Kurikulum
+
+MataKuliah "1" -- "1" Dosen
+
+Kurikulum "1" -- "0..*" JadwalKuliah
+Dosen "1" -- "0..*" JadwalKuliah
+
+' ==========================================
+' RELASI MATERI
+' ==========================================
+
+Dosen "1" -- "0..*" Materi
+MataKuliah "1" -- "0..*" Materi
+
+@enduml
+

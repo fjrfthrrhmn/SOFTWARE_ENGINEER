@@ -1,0 +1,167 @@
+
+@startuml
+title StudentConnect - Sequence Diagram Pengelolaan Materi Pembelajaran Dosen
+
+autonumber
+skinparam shadowing false
+
+actor "Dosen" as Dosen
+boundary "UI" as UI
+control "AuthService" as AuthService
+control "MateriService" as MateriService
+database "DB" as DB
+
+== Login ==
+
+Dosen -> UI: Mengisi email dan password
+activate UI
+UI -> AuthService: login(identifier, password)
+activate AuthService
+
+AuthService -> DB: SELECT * FROM Pengguna\nWHERE identifier = ?
+activate DB
+DB --> AuthService: return data Pengguna
+deactivate DB
+
+alt Kredensial valid dan akun aktif
+    AuthService --> UI: return {data: pengguna,\nmessage: "Login berhasil"}
+    UI --> Dosen: Menampilkan halaman Dosen
+else Kredensial tidak valid
+    AuthService --> UI: return {data: null,\nmessage: "Kredensial tidak valid"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+else Akun tidak aktif
+    AuthService --> UI: return {data: null,\nmessage: "Akun tidak aktif"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+end
+
+deactivate AuthService
+deactivate UI
+
+== Menambahkan Materi Pembelajaran ==
+
+Dosen -> UI: Memilih menu Tambah Materi
+activate UI
+UI --> Dosen: Menampilkan formulir materi
+Dosen -> UI: Mengisi judul, deskripsi,\nfile dan mata kuliah
+UI -> MateriService: menambahkanMateri(materi)
+activate MateriService
+
+MateriService -> DB: INSERT INTO Materi
+activate DB
+DB --> MateriService: return data Materi tersimpan
+deactivate DB
+
+alt Materi berhasil ditambahkan
+    MateriService --> UI: return {data: materi,\nmessage: "Materi berhasil ditambahkan"}
+    UI --> Dosen: Menampilkan konfirmasi berhasil
+else Gagal menambahkan materi
+    MateriService --> UI: return {data: null,\nmessage: "Materi gagal ditambahkan"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+end
+
+deactivate MateriService
+deactivate UI
+
+== Melihat Daftar Materi Pembelajaran ==
+
+Dosen -> UI: Memilih menu Materi Pembelajaran
+activate UI
+UI -> MateriService: lihatDaftarMateri()
+activate MateriService
+
+MateriService -> DB: SELECT Materi berdasarkan\nmata kuliah yang diampu Dosen
+activate DB
+DB --> MateriService: return daftar Materi
+deactivate DB
+
+alt Materi ditemukan
+    MateriService --> UI: return {data: materiList,\nmessage: "Daftar materi berhasil ditampilkan"}
+    UI --> Dosen: Menampilkan daftar materi
+else Daftar materi kosong
+    MateriService --> UI: return {data: [],\nmessage: "Belum ada materi pembelajaran"}
+    UI --> Dosen: Menampilkan informasi materi kosong
+end
+
+deactivate MateriService
+deactivate UI
+
+== Melihat Detail Materi Pembelajaran ==
+
+Dosen -> UI: Memilih salah satu materi
+activate UI
+UI -> MateriService: lihatDetailMateri(id)
+activate MateriService
+
+MateriService -> DB: SELECT * FROM Materi\nWHERE id = ?
+activate DB
+DB --> MateriService: return data Materi
+deactivate DB
+
+alt Materi ditemukan dan mata kuliah diampu Dosen
+    MateriService --> UI: return {data: materi,\nmessage: "Detail materi berhasil ditampilkan"}
+    UI --> Dosen: Menampilkan detail materi
+else Materi tidak ditemukan atau tidak dapat diakses
+    MateriService --> UI: return {data: null,\nmessage: "Materi tidak ditemukan atau tidak dapat diakses"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+end
+
+deactivate MateriService
+deactivate UI
+
+== Mengubah Materi Pembelajaran ==
+
+Dosen -> UI: Memilih aksi Ubah Materi
+activate UI
+UI --> Dosen: Menampilkan formulir dengan data materi
+Dosen -> UI: Mengubah data materi
+UI -> MateriService: mengubahMateri(materi)
+activate MateriService
+
+MateriService -> DB: UPDATE Materi\nSET judul, deskripsi, fileUrl\nWHERE id = ?
+activate DB
+DB --> MateriService: return status pembaruan
+deactivate DB
+
+alt Materi berhasil diubah dan dimiliki mata kuliah yang diampu
+    MateriService --> UI: return {data: true,\nmessage: "Materi berhasil diubah"}
+    UI --> Dosen: Menampilkan konfirmasi berhasil
+else Materi tidak ditemukan atau tidak dapat diakses
+    MateriService --> UI: return {data: false,\nmessage: "Materi tidak ditemukan atau tidak dapat diakses"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+else Gagal mengubah materi
+    MateriService --> UI: return {data: false,\nmessage: "Materi gagal diubah"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+end
+
+deactivate MateriService
+deactivate UI
+
+== Menghapus Materi Pembelajaran ==
+
+Dosen -> UI: Memilih aksi Hapus Materi
+activate UI
+UI --> Dosen: Meminta konfirmasi penghapusan
+Dosen -> UI: Mengonfirmasi penghapusan
+UI -> MateriService: menghapusMateri(id)
+activate MateriService
+
+MateriService -> DB: DELETE FROM Materi\nWHERE id = ?
+activate DB
+DB --> MateriService: return status penghapusan
+deactivate DB
+
+alt Materi berhasil dihapus dan dimiliki mata kuliah yang diampu
+    MateriService --> UI: return {data: true,\nmessage: "Materi berhasil dihapus"}
+    UI --> Dosen: Menampilkan konfirmasi berhasil
+else Materi tidak ditemukan atau tidak dapat diakses
+    MateriService --> UI: return {data: false,\nmessage: "Materi tidak ditemukan atau tidak dapat diakses"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+else Gagal menghapus materi
+    MateriService --> UI: return {data: false,\nmessage: "Materi gagal dihapus"}
+    UI --> Dosen: Menampilkan pesan kesalahan
+end
+
+deactivate MateriService
+deactivate UI
+
+@enduml

@@ -1,0 +1,141 @@
+
+@startuml
+title StudentConnect - Sequence Diagram Pengelolaan Pengguna oleh Admin
+
+autonumber
+skinparam shadowing false
+
+actor "Admin" as Admin
+boundary "UI" as UI
+control "AuthService" as AuthService
+control "PenggunaService" as PenggunaService
+database "DB" as DB
+
+== Login ==
+
+Admin -> UI: Mengisi identifier dan password
+activate UI
+UI -> AuthService: login(identifier, password)
+activate AuthService
+
+AuthService -> DB: SELECT * FROM Pengguna\nWHERE identifier = ?
+activate DB
+DB --> AuthService: return data Pengguna
+deactivate DB
+
+alt Kredensial valid dan akun aktif
+    AuthService --> UI: return {data: pengguna,\nmessage: "Login berhasil"}
+    UI --> Admin: Menampilkan halaman Admin
+else Kredensial tidak valid
+    AuthService --> UI: return {data: null,\nmessage: "Kredensial tidak valid"}
+    UI --> Admin: Menampilkan pesan kesalahan
+else Akun tidak aktif
+    AuthService --> UI: return {data: null,\nmessage: "Akun tidak aktif"}
+    UI --> Admin: Menampilkan pesan kesalahan
+end
+
+deactivate AuthService
+deactivate UI
+
+== Melihat Daftar Data Pengguna ==
+
+Admin -> UI: Memilih menu Data Pengguna
+activate UI
+UI -> PenggunaService: lihatDaftarPengguna()
+activate PenggunaService
+
+PenggunaService -> DB: SELECT * FROM Pengguna\nWHERE role IN ('Mahasiswa', 'Dosen')
+activate DB
+DB --> PenggunaService: return daftar Pengguna
+deactivate DB
+
+alt Data pengguna ditemukan
+    PenggunaService --> UI: return {data: penggunaList,\nmessage: "Daftar pengguna berhasil ditampilkan"}
+    UI --> Admin: Menampilkan daftar Mahasiswa dan Dosen
+else Data pengguna kosong
+    PenggunaService --> UI: return {data: [],\nmessage: "Belum ada data pengguna"}
+    UI --> Admin: Menampilkan informasi data kosong
+end
+
+deactivate PenggunaService
+deactivate UI
+
+== Menambahkan Pengguna ==
+
+Admin -> UI: Memilih menu Tambah Pengguna
+activate UI
+UI --> Admin: Menampilkan formulir pengguna
+Admin -> UI: Mengisi dan mengirim data pengguna
+
+UI -> PenggunaService: menambahkanPengguna(pengguna)
+activate PenggunaService
+
+PenggunaService -> DB: INSERT INTO Pengguna
+activate DB
+DB --> PenggunaService: return data Pengguna
+deactivate DB
+
+alt Pengguna berhasil ditambahkan
+    PenggunaService --> UI: return {data: pengguna,\nmessage: "Pengguna berhasil ditambahkan"}
+    UI --> Admin: Menampilkan pesan berhasil
+else Pengguna gagal ditambahkan
+    PenggunaService --> UI: return {data: null,\nmessage: "Pengguna gagal ditambahkan"}
+    UI --> Admin: Menampilkan pesan kesalahan
+end
+
+deactivate PenggunaService
+deactivate UI
+
+== Mengubah Data Pengguna ==
+
+Admin -> UI: Memilih pengguna dan menu Ubah
+activate UI
+UI --> Admin: Menampilkan formulir data pengguna
+Admin -> UI: Mengubah dan mengirim data pengguna
+
+UI -> PenggunaService: mengubahPengguna(pengguna)
+activate PenggunaService
+
+PenggunaService -> DB: UPDATE Pengguna\nSET data pengguna WHERE id = ?
+activate DB
+DB --> PenggunaService: return status perubahan
+deactivate DB
+
+alt Data pengguna berhasil diubah
+    PenggunaService --> UI: return {data: true,\nmessage: "Data pengguna berhasil diubah"}
+    UI --> Admin: Menampilkan pesan berhasil
+else Data pengguna gagal diubah
+    PenggunaService --> UI: return {data: false,\nmessage: "Data pengguna gagal diubah"}
+    UI --> Admin: Menampilkan pesan kesalahan
+end
+
+deactivate PenggunaService
+deactivate UI
+
+== Menonaktifkan Pengguna ==
+
+Admin -> UI: Memilih pengguna dan menu Nonaktifkan
+activate UI
+UI --> Admin: Meminta konfirmasi penonaktifan
+Admin -> UI: Mengonfirmasi penonaktifan
+
+UI -> PenggunaService: menonaktifkanPengguna(id)
+activate PenggunaService
+
+PenggunaService -> DB: UPDATE Pengguna\nSET status = 'nonaktif' WHERE id = ?
+activate DB
+DB --> PenggunaService: return status perubahan
+deactivate DB
+
+alt Pengguna berhasil dinonaktifkan
+    PenggunaService --> UI: return {data: true,\nmessage: "Pengguna berhasil dinonaktifkan"}
+    UI --> Admin: Menampilkan pesan berhasil
+else Pengguna gagal dinonaktifkan
+    PenggunaService --> UI: return {data: false,\nmessage: "Pengguna gagal dinonaktifkan"}
+    UI --> Admin: Menampilkan pesan kesalahan
+end
+
+deactivate PenggunaService
+deactivate UI
+
+@enduml

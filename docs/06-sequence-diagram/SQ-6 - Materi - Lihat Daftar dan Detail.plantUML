@@ -1,0 +1,86 @@
+
+@startuml
+title StudentConnect - Sequence Diagram Melihat Materi Pembelajaran Mahasiswa
+
+autonumber
+skinparam shadowing false
+
+actor "Mahasiswa" as Mahasiswa
+boundary "UI" as UI
+control "AuthService" as AuthService
+control "MateriService" as MateriService
+database "DB" as DB
+
+== Login ==
+
+Mahasiswa -> UI: Mengisi NIM dan password
+activate UI
+UI -> AuthService: login(nim, password)
+activate AuthService
+
+AuthService -> DB: SELECT * FROM Pengguna\nWHERE identifier = ?
+activate DB
+DB --> AuthService: return data Pengguna
+deactivate DB
+
+alt Kredensial valid dan akun aktif
+    AuthService --> UI: return {data: pengguna,\nmessage: "Login berhasil"}
+    UI --> Mahasiswa: Menampilkan halaman Mahasiswa
+else Kredensial tidak valid
+    AuthService --> UI: return {data: null,\nmessage: "Kredensial tidak valid"}
+    UI --> Mahasiswa: Menampilkan pesan kesalahan
+else Akun tidak aktif
+    AuthService --> UI: return {data: null,\nmessage: "Akun tidak aktif"}
+    UI --> Mahasiswa: Menampilkan pesan kesalahan
+end
+
+deactivate AuthService
+deactivate UI
+
+== Melihat Daftar Materi Pembelajaran ==
+
+Mahasiswa -> UI: Memilih menu Materi Pembelajaran
+activate UI
+UI -> MateriService: lihatDaftarMateri()
+activate MateriService
+
+MateriService -> DB: SELECT Materi berdasarkan\nmata kuliah yang diikuti mahasiswa
+activate DB
+DB --> MateriService: return daftar Materi
+deactivate DB
+
+alt Materi ditemukan
+    MateriService --> UI: return {data: materiList,\nmessage: "Daftar materi berhasil ditampilkan"}
+    UI --> Mahasiswa: Menampilkan daftar materi pembelajaran
+else Materi kosong
+    MateriService --> UI: return {data: [],\nmessage: "Belum ada materi pembelajaran tersedia"}
+    UI --> Mahasiswa: Menampilkan informasi materi kosong
+end
+
+deactivate MateriService
+deactivate UI
+
+== Melihat Detail Materi Pembelajaran ==
+
+Mahasiswa -> UI: Memilih salah satu materi
+activate UI
+UI -> MateriService: lihatDetailMateri(id)
+activate MateriService
+
+MateriService -> DB: SELECT * FROM Materi\nWHERE id = ?
+activate DB
+DB --> MateriService: return data Materi
+deactivate DB
+
+alt Materi ditemukan dan dapat diakses
+    MateriService --> UI: return {data: materi,\nmessage: "Detail materi berhasil ditampilkan"}
+    UI --> Mahasiswa: Menampilkan detail materi pembelajaran
+else Materi tidak ditemukan atau tidak dapat diakses
+    MateriService --> UI: return {data: null,\nmessage: "Materi tidak ditemukan atau tidak dapat diakses"}
+    UI --> Mahasiswa: Menampilkan pesan kesalahan
+end
+
+deactivate MateriService
+deactivate UI
+
+@enduml
