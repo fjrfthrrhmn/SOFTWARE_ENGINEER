@@ -70,7 +70,7 @@ Memastikan akun pengguna yang sudah tidak aktif (seperti mahasiswa lulus/keluar 
 | No. | Aturan |
 |---|---|
 | 1 | Akun pengguna yang berstatus `Non-aktif` secara otomatis ditolak oleh sistem saat mencoba melakukan proses autentikasi/login. |
-| 2 | Penonaktifan akun bersifat *soft state update* (mengubah status flag), bukan menghapus entitas data dari database, untuk menjaga integritas data riwayat (absensi, materi, jadwal). |
+| 2 | Penonaktifan akun bersifat *soft state update* (mengubah status flag), bukan menghapus entitas data dari database, untuk menjaga integritas data riwayat (materi dan jadwal). |
 | 3 | Admin tidak diperbolehkan menonaktifkan akun Admin miliknya sendiri yang sedang digunakan dalam sesi aktif. |
 | 4 | Status akun yang `Non-aktif` dapat dikembalikan menjadi `Aktif` (*reactivate*) oleh Admin apabila diperlukan di kemudian hari. |
 

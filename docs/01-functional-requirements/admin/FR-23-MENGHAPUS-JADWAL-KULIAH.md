@@ -51,8 +51,8 @@ Memastikan integritas dan akurasi data perkuliahan dengan membersihkan alokasi j
 |---|---|---|---|
 | 1 | Admin | Memilih tombol `Hapus` pada baris jadwal perkuliahan tertentu di daftar jadwal (FR-20) | Sistem menampilkan dialog konfirmasi penghapusan data. |
 | 2 | Admin | Mengonfirmasi tindakan penghapusan | Sistem menerima perintah penghapusan. |
-| 3 | System | Memverifikasi apakah jadwal sudah memiliki data riwayat absensi | Perintah terverifikasi aman untuk diproses. |
-| 4 | System | Menghapus atau menandai (*soft delete*) data jadwal perkuliahan dari database | Data jadwal berhasil dihapus. |
+| 3 | System | Memvalidasi jadwal ada dan berstatus aktif | Perintah terverifikasi aman untuk diproses. |
+| 4 | System | Menandai jadwal sebagai dibatalkan (*soft delete*) di database | Data jadwal berhasil dibatalkan. |
 | 5 | System | Menampilkan pesan sukses dan memperbarui tampilan daftar jadwal perkuliahan (FR-20) | Perubahan tercermin secara langsung pada daftar jadwal. |
 
 ---
@@ -69,7 +69,7 @@ Memastikan integritas dan akurasi data perkuliahan dengan membersihkan alokasi j
 
 | No. | Aturan |
 |---|---|
-| 1 | Penghapusan jadwal yang sudah memiliki riwayat absensi berjalan harus dibatasi atau memerlukan peringatan khusus untuk menjaga integritas data akademik. |
+| 1 | Penghapusan jadwal tidak memerlukan pemeriksaan riwayat absensi karena absensi di luar scope (Q-13). |
 | 2 | Sistem menggunakan atribut `status` pada `JadwalKuliah` untuk menandai jadwal yang dibatalkan/dihapus (*soft delete*) agar data dapat dipulihkan (*recovery*) jika terjadi kekeliruan oleh Admin. |
 | 3 | Penghapusan data jadwal secara otomatis akan membatalkan tampilan jadwal perkuliahan pada sisi Dosen (**FR-8**) dan Mahasiswa (**FR-3**). |
 
@@ -152,7 +152,7 @@ Fitur dianggap selesai apabila:
 ### Validation
 
 - [ ] Terdapat dialog konfirmasi sebelum tindakan penghapusan dieksekusi oleh sistem.
-- [ ] Sistem mencegah kerusakan atau ketidaksesuaian data riwayat absensi yang terkait dengan jadwal.
+- [ ] Sistem hanya membatalkan jadwal yang ada dan tidak memeriksa riwayat absensi (di luar scope).
 
 ### Error Handling
 

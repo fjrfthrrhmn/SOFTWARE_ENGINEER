@@ -17,7 +17,7 @@
 
 **Deskripsi:**
 
-> Admin dapat menambahkan data jadwal perkuliahan baru ke dalam sistem, termasuk menentukan mata kuliah, dosen pengampu, ruangan, hari, dan alokasi waktu perkuliahan.
+> Admin dapat menambahkan data jadwal perkuliahan baru ke dalam sistem, termasuk menentukan mata kuliah, ruangan, hari, dan alokasi waktu perkuliahan. Dosen pengampu mengikuti mata kuliah yang dipilih.
 
 ### Tujuan
 
@@ -50,7 +50,7 @@ Memungkinkan Admin mengalokasikan jadwal perkuliahan secara resmi agar dosen dan
 | Step | Aktor | Aktivitas | Hasil |
 |---|---|---|---|
 | 1 | Admin | Memilih tombol `Tambah Jadwal` dari halaman daftar jadwal perkuliahan (FR-20) | Sistem menampilkan form entri jadwal perkuliahan. |
-| 2 | Admin | Mengisi dan memilih seluruh field input (`mata_kuliah_id`, `dosen_id`, `ruangan`, `hari`, `jam_mulai`, `jam_selesai`) | Form input terisi. |
+| 2 | Admin | Mengisi dan memilih seluruh field input (`mata_kuliah_id`, `ruangan`, `hari`, `jam_mulai`, `jam_selesai`) | Form input terisi; dosen pengampu mengikuti mata kuliah. |
 | 3 | Admin | Mengirimkan/menekan tombol `Simpan Jadwal` | Sistem menerima data alokasi jadwal baru. |
 | 4 | System | Memvalidasi format input, durasi waktu, serta pengecekan bentrok ruangan dan dosen | Data dinyatakan valid dan tidak terjadi bentrok (*conflict-free*). |
 | 5 | System | Menyimpan data jadwal perkuliahan baru ke database dan mengarahkan kembali ke daftar jadwal (FR-20) | Jadwal baru terdaftar dan langsung muncul pada daftar jadwal perkuliahan (FR-20). |
@@ -63,14 +63,14 @@ Memungkinkan Admin mengalokasikan jadwal perkuliahan secara resmi agar dosen dan
 
 - [ ] Admin telah login ke dalam sistem (**FR-14**).
 - [ ] Admin berada pada halaman/fitur melihat daftar jadwal perkuliahan (**FR-20**).
-- [ ] Data Mata Kuliah dan Dosen Pengampu sudah terdaftar di dalam sistem.
+- [ ] Data mata kuliah dan dosen pengampunya sudah terdaftar di dalam sistem.
 
 ## 3.2 Aturan Fitur
 
 | No. | Aturan |
 |---|---|
 | 1 | **Pencegahan Bentrok Ruangan (*Room Conflict*):** Ruangan yang sama tidak boleh digunakan oleh lebih dari satu perkuliahan pada hari dan interval jam yang tumpang tindih (*overlap*). |
-| 2 | **Pencegahan Bentrok Dosen (*Lecturer Conflict*):** Dosen yang sama tidak boleh mengajar di dua ruangan berbeda pada hari dan interval jam yang tumpang tindih. |
+| 2 | **Pencegahan Bentrok Dosen (*Lecturer Conflict*):** Dosen pengampu mata kuliah yang dipilih tidak boleh mengajar di dua ruangan berbeda pada hari dan interval jam yang tumpang tindih. |
 | 3 | `jam_selesai` wajib secara kronologis lebih besar/setelah `jam_mulai`. |
 
 ---
@@ -81,8 +81,7 @@ Memungkinkan Admin mengalokasikan jadwal perkuliahan secara resmi agar dosen dan
 
 | Field | Tipe | Wajib | Keterangan | Contoh |
 |---|---|---|---|---|
-| `mata_kuliah_id` | select | Ya | Pilihan mata kuliah yang dibuka | `COMP6047 - RPL` |
-| `dosen_id` | select | Ya | Dosen pengampu mata kuliah | `Dr. Budi Santoso` |
+| `mata_kuliah_id` | select | Ya | Pilihan mata kuliah yang dibuka; menentukan dosen pengampu | `COMP6047 - RPL` |
 | `ruangan` | text | Ya | Kode/nomor ruang perkuliahan | `B201` |
 | `hari` | select | Ya | Hari pelaksanaan kuliah (`Senin`–`Sabtu`, disimpan sebagai kode hari 1–6) | `Senin` |
 | `jam_mulai` | time | Ya | Waktu mulai perkuliahan (format `HH:mm`) | `08:00` |
@@ -92,8 +91,7 @@ Memungkinkan Admin mengalokasikan jadwal perkuliahan secara resmi agar dosen dan
 
 | Field | Aturan | Pesan Error |
 |---|---|---|
-| `mata_kuliah_id` | Wajib dipilih | Mata kuliah wajib dipilih. |
-| `dosen_id` | Wajib dipilih, tidak bentrok jadwal di waktu sama | Dosen pengampu sudah memiliki jadwal mengajar lain pada waktu yang sama. |
+| `mata_kuliah_id` | Wajib dipilih, dosen pengampu tidak bentrok jadwal di waktu sama | Mata kuliah wajib dipilih dan dosen pengampu tidak boleh memiliki jadwal mengajar lain pada waktu yang sama. |
 | `ruangan` | Wajib diisi, tidak bentrok penggunaan di waktu sama | Ruangan ini sudah digunakan oleh perkuliahan lain pada waktu yang sama. |
 | `hari` | Wajib dipilih | Hari perkuliahan wajib dipilih. |
 | `jam_mulai` | Wajib diisi | Jam mulai wajib diisi. |
@@ -152,7 +150,7 @@ Fitur dianggap selesai apabila:
 
 ### Functional
 
-- [ ] Admin dapat membuat jadwal perkuliahan baru dengan mengisi data mata kuliah, dosen, ruangan, hari, dan alokasi waktu.
+- [ ] Admin dapat membuat jadwal perkuliahan baru dengan mengisi data mata kuliah, ruangan, hari, dan alokasi waktu; dosen pengampu mengikuti mata kuliah.
 - [ ] Data jadwal baru yang berhasil ditambahkan langsung tercermin pada daftar jadwal perkuliahan (**FR-20**).
 - [ ] Jadwal yang terbuat secara otomatis dapat diakses oleh dosen pengampu (**FR-8 / FR-9**) dan mahasiswa terkait (**FR-3**).
 

@@ -6,48 +6,48 @@
 
 ## Daftar Use Case
 
-| ID Use Case | Nama Use Case                | Aktor                          | FR Terkait        |
-| ----------- | ---------------------------- | ------------------------------ | ----------------- |
+| ID Use Case | Nama Use Case                | Aktor                            | FR Terkait        |
+| ----------- | ---------------------------- | -------------------------------- | ----------------- |
 | UC-PGN-01   | Login Pengguna               | Pengguna (Mahasiswa/Dosen/Admin) | FR-1, FR-6, FR-14 |
 | UC-PGN-02   | Logout Pengguna              | Pengguna (Mahasiswa/Dosen/Admin) | FR-2, FR-7, FR-15 |
-| UC-PGN-03   | Melihat Daftar Data Pengguna | Admin                          | FR-16             |
-| UC-PGN-04   | Menambahkan Pengguna         | Admin                          | FR-17             |
-| UC-PGN-05   | Mengubah Data Pengguna       | Admin                          | FR-18             |
-| UC-PGN-06   | Menonaktifkan Pengguna       | Admin                          | FR-19             |
+| UC-PGN-03   | Melihat Daftar Data Pengguna | Admin                            | FR-16             |
+| UC-PGN-04   | Menambahkan Pengguna         | Admin                            | FR-17             |
+| UC-PGN-05   | Mengubah Data Pengguna       | Admin                            | FR-18             |
+| UC-PGN-06   | Menonaktifkan Pengguna       | Admin                            | FR-19             |
 
 ---
 
 ## UC-PGN-01 — Login Pengguna
 
-| Field           | Isi                                                                                                                                                                                              |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ID dan nama     | UC-PGN-01 — Login Pengguna                                                                                                                                                                      |
-| Tujuan          | Pengguna (Mahasiswa, Dosen, Admin) dapat masuk ke StudentConnect.                                                                                                                               |
-| Aktor           | Pengguna (Mahasiswa/Dosen/Admin)                                                                                                                                                                |
-| Prasyarat       | Pengguna memiliki akun terdaftar yang aktif.                                                                                                                                                     |
-| Include         | —                                                                                                                                                                                               |
-| Extend          | —                                                                                                                                                                                               |
-| Pemicu          | Pengguna membuka halaman login dan mengirimkan kredensial akun.                                                                                                                                  |
-| Alur utama      | 1. Pengguna membuka halaman login. 2. Pengguna memasukkan identifier (NIM/email/kode dosen) dan password. 3. Sistem memeriksa kredensial. 4. Sistem mengizinkan akses sesuai peran jika kredensial valid. |
-| Alur alternatif | Jika kredensial tidak valid atau akun nonaktif, sistem menolak login dan pengguna tetap berada di luar sistem.                                                                                   |
-| Kondisi akhir   | Pengguna berhasil masuk ke sistem dan memperoleh akses sesuai perannya.                                                                                                                         |
-| FR terkait      | FR-1, FR-6, FR-14                                                                                                                                                                               |
+| Field           | Isi                                                                                                                                                                                                       |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID dan nama     | UC-PGN-01 — Login Pengguna                                                                                                                                                                                |
+| Tujuan          | Pengguna (Mahasiswa, Dosen, Admin) dapat masuk ke StudentConnect.                                                                                                                                         |
+| Aktor           | Pengguna (Mahasiswa/Dosen/Admin)                                                                                                                                                                          |
+| Prasyarat       | Pengguna memiliki akun terdaftar yang aktif.                                                                                                                                                              |
+| Include         | —                                                                                                                                                                                                         |
+| Extend          | —                                                                                                                                                                                                         |
+| Pemicu          | Pengguna membuka halaman login dan mengirimkan kredensial akun.                                                                                                                                           |
+| Alur utama      | 1. Pengguna membuka halaman login. 2. Pengguna memasukkan email (NIM untuk mahasiswa) dan password. 3. Sistem memeriksa kredensial. 4. Sistem mengizinkan akses sesuai peran jika kredensial valid. |
+| Alur alternatif | Jika kredensial tidak valid atau akun nonaktif, sistem menolak login dan pengguna tetap berada di luar sistem.                                                                                            |
+| Kondisi akhir   | Pengguna berhasil masuk ke sistem dan memperoleh akses sesuai perannya.                                                                                                                                   |
+| FR terkait      | FR-1, FR-6, FR-14                                                                                                                                                                                         |
 
 ## UC-PGN-02 — Logout Pengguna
 
-| Field           | Isi                                                                                                                                           |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID dan nama     | UC-PGN-02 — Logout Pengguna                                                                                                                   |
-| Tujuan          | Pengguna mengakhiri sesi penggunaan sistem.                                                                                                   |
-| Aktor           | Pengguna (Mahasiswa/Dosen/Admin)                                                                                                              |
-| Prasyarat       | Pengguna telah login (include UC-PGN-01).                                                                                                     |
+| Field           | Isi                                                                                                                                          |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID dan nama     | UC-PGN-02 — Logout Pengguna                                                                                                                  |
+| Tujuan          | Pengguna mengakhiri sesi penggunaan sistem.                                                                                                  |
+| Aktor           | Pengguna (Mahasiswa/Dosen/Admin)                                                                                                             |
+| Prasyarat       | Pengguna telah login (include UC-PGN-01).                                                                                                    |
 | Include         | `<<include>>` UC-PGN-01 — Login Pengguna                                                                                                     |
-| Extend          | —                                                                                                                                             |
-| Pemicu          | Pengguna memilih fungsi logout.                                                                                                               |
+| Extend          | —                                                                                                                                            |
+| Pemicu          | Pengguna memilih fungsi logout.                                                                                                              |
 | Alur utama      | 1. Pengguna memilih logout. 2. Sistem mengakhiri sesi pengguna. 3. Sistem mengarahkan pengguna keluar dari area yang memerlukan autentikasi. |
-| Alur alternatif | Jika proses logout gagal, sistem memberi tahu bahwa proses belum berhasil dan sesi belum dianggap berakhir.                                   |
-| Kondisi akhir   | Sesi Pengguna berakhir.                                                                                                                       |
-| FR terkait      | FR-2, FR-7, FR-15                                                                                                                             |
+| Alur alternatif | Jika proses logout gagal, sistem memberi tahu bahwa proses belum berhasil dan sesi belum dianggap berakhir.                                  |
+| Kondisi akhir   | Sesi Pengguna berakhir.                                                                                                                      |
+| FR terkait      | FR-2, FR-7, FR-15                                                                                                                            |
 
 ## UC-PGN-03 — Melihat Daftar Data Pengguna
 
@@ -57,7 +57,7 @@
 | Tujuan          | Admin melihat data pengguna Mahasiswa dan Dosen.                                                                                                  |
 | Aktor           | Admin                                                                                                                                             |
 | Prasyarat       | Admin telah login (include UC-PGN-01).                                                                                                            |
-| Include         | `<<include>>` UC-PGN-01 — Login Pengguna                                                                                                         |
+| Include         | `<<include>>` UC-PGN-01 — Login Pengguna                                                                                                          |
 | Extend          | — (menjadi base untuk UC-PGN-04, UC-PGN-05, UC-PGN-06)                                                                                            |
 | Pemicu          | Admin membuka halaman pengelolaan pengguna.                                                                                                       |
 | Alur utama      | 1. Admin membuka halaman pengelolaan pengguna. 2. Sistem mengambil data pengguna Mahasiswa dan Dosen. 3. Sistem menampilkan daftar data pengguna. |

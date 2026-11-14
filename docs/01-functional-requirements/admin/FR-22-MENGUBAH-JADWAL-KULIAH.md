@@ -17,11 +17,11 @@
 
 **Deskripsi:**
 
-> Admin dapat mengubah data jadwal perkuliahan yang sudah terdaftar di dalam sistem, termasuk penyesuaian mata kuliah, dosen pengampu, ruangan, hari, dan alokasi waktu perkuliahan.
+> Admin dapat mengubah data jadwal perkuliahan yang sudah terdaftar di dalam sistem, termasuk penyesuaian mata kuliah, ruangan, hari, dan alokasi waktu perkuliahan. Dosen pengampu mengikuti mata kuliah yang dipilih.
 
 ### Tujuan
 
-Memungkinkan Admin menyesuaikan jadwal perkuliahan apabila terjadi perubahan alokasi ruangan, perpindahan dosen pengampu, atau penyesuaian waktu kuliah tanpa menimbulkan bentrok jadwal baru.
+Memungkinkan Admin menyesuaikan jadwal perkuliahan apabila terjadi perubahan mata kuliah, alokasi ruangan, atau penyesuaian waktu kuliah tanpa menimbulkan bentrok jadwal baru.
 
 ### Contoh
 
@@ -50,7 +50,7 @@ Memungkinkan Admin menyesuaikan jadwal perkuliahan apabila terjadi perubahan alo
 | Step | Aktor | Aktivitas | Hasil |
 |---|---|---|---|
 | 1 | Admin | Memilih tombol `Ubah` pada salah satu baris jadwal di daftar jadwal perkuliahan (FR-20) | Sistem menampilkan form ubah jadwal terisi data eksisting. |
-| 2 | Admin | Memperbarui field input (`mata_kuliah_id`, `dosen_id`, `ruangan`, `hari`, `jam_mulai`, `jam_selesai`) | Form input terisi data pembaruan. |
+| 2 | Admin | Memperbarui field input (`mata_kuliah_id`, `ruangan`, `hari`, `jam_mulai`, `jam_selesai`) | Form input terisi data pembaruan; dosen pengampu mengikuti mata kuliah. |
 | 3 | Admin | Mengirimkan/menekan tombol `Simpan Perubahan` | Sistem menerima data pembaruan jadwal. |
 | 4 | System | Memvalidasi format input, durasi waktu, serta pengecekan bentrok ruangan dan dosen (mengabaikan entitas jadwal yang sedang diubah) | Data dinyatakan valid dan tidak terjadi bentrok (*conflict-free*). |
 | 5 | System | Memperbarui data jadwal perkuliahan di database dan mengarahkan kembali ke daftar jadwal (FR-20) | Data jadwal berhasil diperbarui dan perubahan langsung tercermin di daftar jadwal (FR-20). |
@@ -70,7 +70,7 @@ Memungkinkan Admin menyesuaikan jadwal perkuliahan apabila terjadi perubahan alo
 | No. | Aturan |
 |---|---|
 | 1 | **Pencegahan Bentrok Ruangan (*Room Conflict*):** Ruangan yang dipilih tidak boleh tumpang tindih (*overlap*) dengan jadwal perkuliahan lain pada hari dan interval jam yang sama. |
-| 2 | **Pencegahan Bentrok Dosen (*Lecturer Conflict*):** Dosen pengampu tidak boleh mengajar di ruangan lain pada hari dan interval jam yang tumpang tindih. |
+| 2 | **Pencegahan Bentrok Dosen (*Lecturer Conflict*):** Dosen pengampu mata kuliah yang dipilih tidak boleh mengajar di ruangan lain pada hari dan interval jam yang tumpang tindih. |
 | 3 | Pengecekan bentrok jadwal mengabaikan entitas jadwal (*record ID*) yang sedang disunting/diubah. |
 | 4 | `jam_selesai` wajib secara kronologis lebih besar/setelah `jam_mulai`. |
 
@@ -82,8 +82,7 @@ Memungkinkan Admin menyesuaikan jadwal perkuliahan apabila terjadi perubahan alo
 
 | Field | Tipe | Wajib | Keterangan | Contoh |
 |---|---|---|---|---|
-| `mata_kuliah_id` | select | Ya | Pilihan mata kuliah yang dibuka | `COMP6047 - RPL` |
-| `dosen_id` | select | Ya | Dosen pengampu mata kuliah | `Dr. Budi Santoso` |
+| `mata_kuliah_id` | select | Ya | Pilihan mata kuliah yang dibuka; menentukan dosen pengampu | `COMP6047 - RPL` |
 | `ruangan` | text | Ya | Kode/nomor ruang perkuliahan | `B205` |
 | `hari` | select | Ya | Hari pelaksanaan kuliah (`Senin`–`Sabtu`, disimpan sebagai kode hari 1–6) | `Selasa` |
 | `jam_mulai` | time | Ya | Waktu mulai perkuliahan (format `HH:mm`) | `10:00` |
@@ -93,8 +92,7 @@ Memungkinkan Admin menyesuaikan jadwal perkuliahan apabila terjadi perubahan alo
 
 | Field | Aturan | Pesan Error |
 |---|---|---|
-| `mata_kuliah_id` | Wajib dipilih | Mata kuliah wajib dipilih. |
-| `dosen_id` | Wajib dipilih, tidak bentrok jadwal di waktu sama | Dosen pengampu sudah memiliki jadwal mengajar lain pada waktu yang sama. |
+| `mata_kuliah_id` | Wajib dipilih, dosen pengampu tidak bentrok jadwal di waktu sama | Mata kuliah wajib dipilih dan dosen pengampu tidak boleh memiliki jadwal mengajar lain pada waktu yang sama. |
 | `ruangan` | Wajib diisi, tidak bentrok penggunaan di waktu sama | Ruangan ini sudah digunakan oleh perkuliahan lain pada waktu yang sama. |
 | `hari` | Wajib dipilih | Hari perkuliahan wajib dipilih. |
 | `jam_mulai` | Wajib diisi | Jam mulai wajib diisi. |
