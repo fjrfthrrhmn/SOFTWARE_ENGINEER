@@ -1,0 +1,760 @@
+{
+  "id": "f342a6b6-836d-4e00-b300-d8a16986183c",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.admin": {
+      "name": "admin",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nama": {
+          "name": "nama",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_pengguna": {
+          "name": "id_pengguna",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "admin_id_pengguna_pengguna_id_fk": {
+          "name": "admin_id_pengguna_pengguna_id_fk",
+          "tableFrom": "admin",
+          "tableTo": "pengguna",
+          "columnsFrom": [
+            "id_pengguna"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "admin_id_pengguna_unique": {
+          "name": "admin_id_pengguna_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id_pengguna"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.dosen": {
+      "name": "dosen",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "kode_dosen": {
+          "name": "kode_dosen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nama": {
+          "name": "nama",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_pengguna": {
+          "name": "id_pengguna",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dosen_id_pengguna_pengguna_id_fk": {
+          "name": "dosen_id_pengguna_pengguna_id_fk",
+          "tableFrom": "dosen",
+          "tableTo": "pengguna",
+          "columnsFrom": [
+            "id_pengguna"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "dosen_kode_dosen_unique": {
+          "name": "dosen_kode_dosen_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "kode_dosen"
+          ]
+        },
+        "dosen_id_pengguna_unique": {
+          "name": "dosen_id_pengguna_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id_pengguna"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.jadwal_kuliah": {
+      "name": "jadwal_kuliah",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "hari": {
+          "name": "hari",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jam_mulai": {
+          "name": "jam_mulai",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jam_selesai": {
+          "name": "jam_selesai",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ruangan": {
+          "name": "ruangan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "status_jadwal",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'aktif'"
+        },
+        "id_kurikulum": {
+          "name": "id_kurikulum",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "jadwal_kuliah_id_kurikulum_kurikulum_id_fk": {
+          "name": "jadwal_kuliah_id_kurikulum_kurikulum_id_fk",
+          "tableFrom": "jadwal_kuliah",
+          "tableTo": "kurikulum",
+          "columnsFrom": [
+            "id_kurikulum"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.kurikulum": {
+      "name": "kurikulum",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "id_program_studi": {
+          "name": "id_program_studi",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_mata_kuliah": {
+          "name": "id_mata_kuliah",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tahun_kurikulum": {
+          "name": "tahun_kurikulum",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "kurikulum_id_program_studi_program_studi_id_fk": {
+          "name": "kurikulum_id_program_studi_program_studi_id_fk",
+          "tableFrom": "kurikulum",
+          "tableTo": "program_studi",
+          "columnsFrom": [
+            "id_program_studi"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "kurikulum_id_mata_kuliah_mata_kuliah_id_fk": {
+          "name": "kurikulum_id_mata_kuliah_mata_kuliah_id_fk",
+          "tableFrom": "kurikulum",
+          "tableTo": "mata_kuliah",
+          "columnsFrom": [
+            "id_mata_kuliah"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "kurikulum_program_studi_mata_kuliah_tahun_unique": {
+          "name": "kurikulum_program_studi_mata_kuliah_tahun_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id_program_studi",
+            "id_mata_kuliah",
+            "tahun_kurikulum"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mahasiswa": {
+      "name": "mahasiswa",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nim": {
+          "name": "nim",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nama": {
+          "name": "nama",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "angkatan": {
+          "name": "angkatan",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_pengguna": {
+          "name": "id_pengguna",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_program_studi": {
+          "name": "id_program_studi",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mahasiswa_id_pengguna_pengguna_id_fk": {
+          "name": "mahasiswa_id_pengguna_pengguna_id_fk",
+          "tableFrom": "mahasiswa",
+          "tableTo": "pengguna",
+          "columnsFrom": [
+            "id_pengguna"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mahasiswa_id_program_studi_program_studi_id_fk": {
+          "name": "mahasiswa_id_program_studi_program_studi_id_fk",
+          "tableFrom": "mahasiswa",
+          "tableTo": "program_studi",
+          "columnsFrom": [
+            "id_program_studi"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "mahasiswa_nim_unique": {
+          "name": "mahasiswa_nim_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nim"
+          ]
+        },
+        "mahasiswa_id_pengguna_unique": {
+          "name": "mahasiswa_id_pengguna_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id_pengguna"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mata_kuliah": {
+      "name": "mata_kuliah",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "kode_mata_kuliah": {
+          "name": "kode_mata_kuliah",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nama_mata_kuliah": {
+          "name": "nama_mata_kuliah",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sks": {
+          "name": "sks",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deskripsi": {
+          "name": "deskripsi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_dosen": {
+          "name": "id_dosen",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mata_kuliah_id_dosen_dosen_id_fk": {
+          "name": "mata_kuliah_id_dosen_dosen_id_fk",
+          "tableFrom": "mata_kuliah",
+          "tableTo": "dosen",
+          "columnsFrom": [
+            "id_dosen"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "mata_kuliah_kode_mata_kuliah_unique": {
+          "name": "mata_kuliah_kode_mata_kuliah_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "kode_mata_kuliah"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.materi": {
+      "name": "materi",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "judul": {
+          "name": "judul",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deskripsi": {
+          "name": "deskripsi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "file_url": {
+          "name": "file_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_mata_kuliah": {
+          "name": "id_mata_kuliah",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_dosen": {
+          "name": "id_dosen",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "materi_id_mata_kuliah_mata_kuliah_id_fk": {
+          "name": "materi_id_mata_kuliah_mata_kuliah_id_fk",
+          "tableFrom": "materi",
+          "tableTo": "mata_kuliah",
+          "columnsFrom": [
+            "id_mata_kuliah"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "materi_id_dosen_dosen_id_fk": {
+          "name": "materi_id_dosen_dosen_id_fk",
+          "tableFrom": "materi",
+          "tableTo": "dosen",
+          "columnsFrom": [
+            "id_dosen"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pengguna": {
+      "name": "pengguna",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password_hash": {
+          "name": "password_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "status_pengguna",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'aktif'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "pengguna_email_unique": {
+          "name": "pengguna_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.program_studi": {
+      "name": "program_studi",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nama": {
+          "name": "nama",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "program_studi_nama_unique": {
+          "name": "program_studi_nama_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nama"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.role": {
+      "name": "role",
+      "schema": "public",
+      "values": [
+        "mahasiswa",
+        "dosen",
+        "admin"
+      ]
+    },
+    "public.status_jadwal": {
+      "name": "status_jadwal",
+      "schema": "public",
+      "values": [
+        "aktif",
+        "dibatalkan"
+      ]
+    },
+    "public.status_pengguna": {
+      "name": "status_pengguna",
+      "schema": "public",
+      "values": [
+        "aktif",
+        "nonaktif"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
