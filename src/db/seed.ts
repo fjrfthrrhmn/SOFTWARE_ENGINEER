@@ -86,7 +86,7 @@ async function main() {
   const [mahasiswaUser] = await db
     .insert(pengguna)
     .values({
-      email: "23123456",
+      email: "dhandy.amir@studentconnect.local",
       passwordHash: hashPassword("mahasiswa12345"),
       role: "mahasiswa",
     })

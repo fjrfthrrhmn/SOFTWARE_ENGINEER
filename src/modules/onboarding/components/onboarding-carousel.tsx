@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Link from "next/link"
+import { useFormStatus } from "react-dom"
 import { ChevronLeft, ChevronRight } from "reicon-react"
 import { Button } from "@/shared/components/ui/button"
 import {
@@ -12,8 +12,25 @@ import {
 } from "@/shared/components/ui/carousel"
 import { ScreenShell } from "@/shared/components/screen-shell"
 import { cn } from "@/lib/utils"
+import { completeOnboarding } from "../actions"
 import { onboardingSteps } from "../copy"
 import { OnboardingStepView } from "./onboarding-step"
+
+function StartButton({ label }: { label: string }) {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button
+      type="submit"
+      size="lg"
+      className="h-12 w-full text-sm font-bold"
+      disabled={pending}
+    >
+      {label}
+      <ChevronRight size={18} className="size-[18px] stroke-3" stroke="2px" />
+    </Button>
+  )
+}
 
 export function OnboardingCarousel() {
   const [api, setApi] = useState<CarouselApi>()
@@ -34,7 +51,7 @@ export function OnboardingCarousel() {
 
   return (
     <ScreenShell>
-      <main className="relative mt-10 flex flex-1 flex-col justify-between gap-10 px-5 pt-4 pb-[calc(1.25rem_+_env(safe-area-inset-bottom))]">
+      <main className="relative mt-10 mb-2 flex flex-1 flex-col justify-between gap-10 px-5 pt-4 pb-[calc(1.25rem_+_env(safe-area-inset-bottom))]">
         <div className="flex flex-1 flex-col gap-10">
           <Carousel setApi={setApi} opts={{ align: "start" }}>
             <CarouselContent className="-ml-0">
@@ -71,15 +88,24 @@ export function OnboardingCarousel() {
         </div>
 
         <div className="mt-auto w-full">
-          <Button
-            size="lg"
-            className="h-12 w-full text-sm font-bold"
-            render={last ? <Link href="/login" /> : undefined}
-            onClick={last ? undefined : () => api?.scrollNext()}
-          >
-            {step.primaryCta}
-            <ChevronRight size={18} className="size-[18px] stroke-3" stroke="2px" />
-          </Button>
+          {last ? (
+            <form action={completeOnboarding}>
+              <StartButton label={step.primaryCta} />
+            </form>
+          ) : (
+            <Button
+              size="lg"
+              className="h-12 w-full text-sm font-bold"
+              onClick={() => api?.scrollNext()}
+            >
+              {step.primaryCta}
+              <ChevronRight
+                size={18}
+                className="size-[18px] stroke-3"
+                stroke="2px"
+              />
+            </Button>
+          )}
           <Button
             variant="ghost"
             size="lg"

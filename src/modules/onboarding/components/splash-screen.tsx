@@ -11,14 +11,14 @@ import { fadeUp, sway } from "../motion/variants"
 const WAVE_PATH =
   "M0 8 Q5 2 10 8 T20 8 T30 8 T40 8 T50 8 T60 8 T70 8 T80 8 T90 8 T100 8 T110 8 T120 8 T130 8 T140 8 T150 8 T160 8 T170 8 T180 8 T190 8 T200 8 T210 8 T220 8 T230 8 T240 8 T250 8 T260 8 T270 8 T280 8 T290 8 T300 8 T310 8 T320 8"
 
-export function SplashScreen() {
+export function SplashScreen({ destination }: { destination: string }) {
   const router = useRouter()
   const reduce = useReducedMotion()
   const [label, setLabel] = useState(splash.loadingLabels[0])
 
   useEffect(() => {
     const timeout = setTimeout(
-      () => router.replace("/onboarding"),
+      () => router.replace(destination),
       reduce ? 700 : 2700,
     )
 
@@ -34,7 +34,7 @@ export function SplashScreen() {
       clearTimeout(timeout)
       clearInterval(interval)
     }
-  }, [reduce, router])
+  }, [destination, reduce, router])
 
   return (
     <ScreenShell>

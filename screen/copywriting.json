@@ -83,5 +83,77 @@
     "primaryCta": "Masuk dengan Akun Lain",
     "secondaryCta": "Kembali ke Beranda",
     "help": "Memerlukan izin akses? Hubungi admin untuk mendapatkan informasi lebih lanjut"
+  },
+  "authLogin": {
+    "file": "screen/ui-auth-login.html",
+    "title": "StudentConnect | Masuk",
+    "brand": "StudentConnect",
+    "logoAlt": "Logo StudentConnect",
+    "eyebrow": "Selamat Datang",
+    "heading": "Masuk ke StudentConnect",
+    "description": "Akses informasi kuliah melalui akun akademikmu.",
+
+    "form": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Masukkan email",
+        "type": "email",
+        "required": true,
+        "error": "Masukkan email"
+      },
+      "password": {
+        "label": "Kata Sandi",
+        "placeholder": "Masukkan kata sandi",
+        "type": "password",
+        "required": true,
+        "error": "Kata sandi wajib diisi"
+      },
+      "rememberMe": {
+        "label": "Ingat saya"
+      },
+      "submit": {
+        "label": "Masuk",
+        "loadingLabel": "Memeriksa akun..."
+      }
+    },
+
+    "footer": {
+      "description": "Dengan melanjutkan, kamu menyetujui",
+      "privacyPolicy": "Kebijakan Privasi",
+      "conjunction": "dan",
+      "termsOfService": "Ketentuan Layanan"
+    },
+
+    "feedback": {
+      "invalidCredentials": {
+        "title": "Email atau kata sandi tidak sesuai",
+        "description": "Periksa kembali data yang kamu masukkan"
+      },
+      "accountNotFound": {
+        "title": "Akun tidak ditemukan",
+        "description": "Pastikan kamu menggunakan email yang terdaftar di StudentConnect"
+      },
+      "accountDisabled": {
+        "title": "Akun tidak aktif",
+        "description": "Akun ini belum dapat digunakan. Hubungi admin program studi untuk mendapatkan bantuan"
+      },
+      "rateLimited": {
+        "title": "Terlalu banyak percobaan",
+        "description": "Tunggu 15 menit sebelum mencoba masuk kembali"
+      },
+      "serverError": {
+        "title": "Terjadi kendala",
+        "description": "Permintaan masuk belum dapat diproses. Silakan coba kembali"
+      },
+      "success": {
+        "title": "Berhasil masuk",
+        "description": "Selamat datang kembali di StudentConnect"
+      }
+    },
+
+    "help": {
+      "description": "Mengalami kendala saat masuk?",
+      "contactAdmin": "Hubungi admin"
+    }
   }
 }
