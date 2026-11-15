@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Platform informasi akademik untuk mahasiswa, dosen, dan admin.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f4f4f5",
-    theme_color: "#171717",
+    background_color: "#fff",
+    theme_color: "#fff",
     icons: [
       {
         src: "/favicon.ico",
