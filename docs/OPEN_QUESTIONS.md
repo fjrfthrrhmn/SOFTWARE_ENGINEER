@@ -48,6 +48,7 @@
 | D-25 | 2026-11-14 | Kredensial admin seed (Q-18)? | `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD`; email dari environment; seed gagal jika kosong | Diputuskan |
 | D-26 | 2026-11-14 | Kapan schema Q-05/Q-06/Q-07/Q-15 diterapkan dan bagaimana migrasinya (Q-19)? | M0: sinkronkan schema lalu regenerasi baseline `0000` karena database belum pernah dimigrasikan | Diputuskan |
 | D-27 | 2026-11-14 | Kapan seed beralih dari scrypt ke bcryptjs? | M0, bersamaan dengan sinkronisasi seed; tidak menunggu M1 | Diputuskan |
+| D-28 | 2026-11-15 | Perlu dependency `motion` untuk splash dan onboarding? | Ya. Implementasi memakai `motion` v14 (sudah terpasang) untuk entrance, bob, dan progress bar; carousel memakai shadcn `carousel` + `embla-carousel-react`. `prefers-reduced-motion` tetap dihormati via `useReducedMotion` | Diputuskan |
 
 ---
 
