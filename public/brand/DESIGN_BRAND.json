@@ -1,0 +1,563 @@
+{
+  "brand_identity": {
+    "brand_name": "MOCHI",
+    "brand_type": "Academic Information Platform",
+    "brand_role": "Official Brand Mascot",
+    "project_name": "Platform Informasi Akademik",
+    "tagline": "Your Academic Companion",
+    "language": "id",
+    "description": "MOCHI adalah maskot resmi Platform Informasi Akademik yang merepresentasikan karakter ramah, cerdas, interaktif, informatif, dan selalu siap membantu mahasiswa maupun dosen dalam mengakses informasi akademik.",
+    "brand_personality": [
+      "Friendly",
+      "Approachable",
+      "Intelligent",
+      "Helpful",
+      "Expressive",
+      "Trustworthy",
+      "Playful",
+      "Academic"
+    ],
+    "target_audience": [
+      "Students",
+      "Lecturers",
+      "Academic Staff"
+    ],
+    "brand_values": [
+      "Accessibility",
+      "Simplicity",
+      "Clarity",
+      "Engagement",
+      "Reliability"
+    ]
+  },
+  "color_palette": {
+    "primary": {
+      "name": "Primary Blue",
+      "hex": "#3B82F6",
+      "usage": "Primary brand color, interactive elements, and dominant visual accents."
+    },
+    "secondary": {
+      "name": "Sky Blue",
+      "hex": "#60A5FA",
+      "usage": "Secondary surfaces, gradients, supporting illustrations, and highlights."
+    },
+    "accent": {
+      "name": "Cyan Blue",
+      "hex": "#0EA5E9",
+      "usage": "Mascot body accents, interactive highlights, and decorative elements."
+    },
+    "supporting": {
+      "name": "Ice Blue",
+      "hex": "#E0F2FE",
+      "usage": "Soft backgrounds, illustration highlights, and subtle containers."
+    },
+    "outline": {
+      "name": "Deep Blue",
+      "hex": "#1E40AF",
+      "usage": "Deep shadows, contrast accents, and visual depth."
+    },
+    "additional_colors": {
+      "white": "#FFFFFF",
+      "light_background": "#F8FAFC",
+      "dark_text": "#0F172A",
+      "secondary_text": "#64748B",
+      "success": "#22C55E",
+      "error": "#EF4444",
+      "warning": "#F59E0B"
+    },
+    "gradient": {
+      "primary": {
+        "type": "linear",
+        "direction": "top-to-bottom",
+        "colors": [
+          "#0EA5E9",
+          "#3B82F6"
+        ]
+      },
+      "mascot_body": {
+        "type": "radial",
+        "colors": [
+          "#FFFFFF",
+          "#BAE6FD",
+          "#0EA5E9"
+        ]
+      },
+      "graduation_cap": {
+        "type": "linear",
+        "direction": "top-to-bottom",
+        "colors": [
+          "#60A5FA",
+          "#1E40AF"
+        ]
+      }
+    },
+    "color_rules": {
+      "preserve_original_palette": true,
+      "avoid_unapproved_color_replacements": true,
+      "maintain_blue_and_cyan_identity": true,
+      "use_gradients_consistently": true,
+      "avoid_excessive_saturation": true
+    }
+  },
+  "typography": {
+    "style": "Modern, clean, friendly sans-serif",
+    "primary_font": {
+      "family": "Plus Jakarta Sans",
+      "usage": "Brand headings, website headings, navigation, and prominent interface text."
+    },
+    "secondary_font": {
+      "family": "Plus Jakarta Sans",
+      "usage": "Body text, descriptions, labels, and supporting information."
+    },
+    "hierarchy": {
+      "display": {
+        "weight": 800,
+        "usage": "Brand name and major headings."
+      },
+      "heading": {
+        "weight": 700,
+        "usage": "Section titles and page headings."
+      },
+      "subheading": {
+        "weight": 600,
+        "usage": "Card titles and supporting headings."
+      },
+      "body": {
+        "weight": 400,
+        "usage": "Paragraphs and descriptions."
+      },
+      "label": {
+        "weight": 600,
+        "usage": "Buttons, badges, and interface labels."
+      }
+    },
+    "typography_rules": [
+      "Prioritize readability and clear hierarchy.",
+      "Use consistent font weights.",
+      "Avoid decorative fonts.",
+      "Maintain sufficient contrast between text and backgrounds.",
+      "Use friendly and approachable typography."
+    ]
+  },
+  "logo_guidelines": {
+    "primary_logo": {
+      "type": "Mascot Icon",
+      "description": "A rounded square icon containing the MOCHI mascot face wearing a blue graduation cap.",
+      "elements": [
+        "Rounded square background",
+        "Blue gradient background",
+        "White and cyan mascot face",
+        "Two white oval eyes",
+        "Blue graduation cap",
+        "White graduation tassel"
+      ]
+    },
+    "logo_variations": [
+      {
+        "name": "Primary Icon",
+        "description": "Full mascot face inside a rounded square."
+      },
+      {
+        "name": "Mascot Only",
+        "description": "MOCHI character without the surrounding square background."
+      },
+      {
+        "name": "Brand Lockup",
+        "description": "MOCHI icon combined with the MOCHI wordmark."
+      }
+    ],
+    "logo_rules": {
+      "preserve_original_silhouette": true,
+      "preserve_original_proportions": true,
+      "preserve_graduation_cap": true,
+      "preserve_eye_design": true,
+      "preserve_blue_color_identity": true,
+      "avoid_distortion": true,
+      "avoid_unapproved_accessories": true,
+      "avoid_unapproved_color_changes": true,
+      "avoid_complex_backgrounds": true
+    },
+    "clear_space": "Maintain sufficient empty space around the logo to preserve visual clarity.",
+    "minimum_size": {
+      "digital_icon": "32px",
+      "recommended_icon": "48px",
+      "app_icon": "512px"
+    },
+    "background_usage": [
+      "White",
+      "Light blue",
+      "Approved blue gradients"
+    ]
+  },
+  "mascot_guidelines": {
+    "identity": {
+      "name": "MOCHI",
+      "role": "Official Academic Platform Mascot",
+      "character_type": "Abstract rounded blob character",
+      "visual_style": "Glossy 3D-inspired illustration",
+      "personality": [
+        "Friendly",
+        "Intelligent",
+        "Helpful",
+        "Approachable",
+        "Expressive",
+        "Playful"
+      ]
+    },
+    "physical_characteristics": {
+      "body": {
+        "shape": "Rounded, soft, blob-like silhouette",
+        "proportion": "Large rounded head and body with a compact overall silhouette",
+        "material": "Smooth glossy appearance",
+        "base_color": "#0EA5E9",
+        "highlight_color": "#FFFFFF",
+        "shadow_color": "#1E40AF",
+        "texture": "Soft, smooth, reflective gradient shading"
+      },
+      "face": {
+        "eyes": {
+          "shape": "Two vertical oval shapes",
+          "color": "#FFFFFF",
+          "style": "Minimalist, rounded, expressive",
+          "default_expression": "Neutral"
+        },
+        "mouth": {
+          "default_visibility": "No prominent mouth in the original reference",
+          "expression_variations": "Small, simple, rounded mouth shapes may be used for expressive illustrations."
+        },
+        "eyebrows": {
+          "default_visibility": "Not present in the original reference",
+          "expression_variations": "Optional minimal eyebrow-like shapes when required for emotional expression."
+        }
+      },
+      "accessories": {
+        "graduation_cap": {
+          "required": true,
+          "type": "Academic graduation cap",
+          "main_color": "#3B82F6",
+          "secondary_color": "#1E40AF",
+          "tassel_color": "#E0F2FE",
+          "style": "Rounded, smooth, glossy, and softly illuminated",
+          "position": "Centered on top of the mascot head"
+        }
+      }
+    },
+    "character_turnaround": {
+      "required_views": [
+        "Front View",
+        "Side View",
+        "Back View",
+        "Three-Quarter View"
+      ],
+      "consistency_rules": [
+        "All views must represent the same character.",
+        "Maintain identical body proportions.",
+        "Maintain graduation cap dimensions and placement.",
+        "Preserve the original silhouette.",
+        "Keep the same material and shading style.",
+        "Maintain consistent eye placement and dimensions."
+      ]
+    },
+    "expression_sheet": {
+      "expressions": [
+        "Happy",
+        "Sad",
+        "Angry",
+        "Surprised",
+        "Confused",
+        "Excited",
+        "Thinking",
+        "Shy",
+        "Winking",
+        "Neutral",
+        "Smug / Proud",
+        "Determined / Focused",
+        "Panic / Sweating",
+        "Sleepy / Tired"
+      ],
+      "rules": [
+        "Expressions must remain recognizable as MOCHI.",
+        "Only facial features and body language may change.",
+        "Do not change the original character silhouette.",
+        "Do not permanently modify the eye design.",
+        "Keep the graduation cap consistent.",
+        "Avoid exaggerated facial anatomy."
+      ]
+    },
+    "pose_guidelines": {
+      "approved_poses": [
+        "Standing",
+        "Waving",
+        "Sitting",
+        "Thinking",
+        "Celebrating",
+        "Studying",
+        "Using a laptop",
+        "Pointing",
+        "Reading",
+        "Sleeping"
+      ],
+      "rules": [
+        "Preserve the original body shape.",
+        "Keep movements natural and friendly.",
+        "Maintain the mascot's recognizable silhouette.",
+        "Avoid poses that require unapproved anatomical features."
+      ]
+    },
+    "character_consistency": {
+      "single_source_of_truth": "Master Character Design Sheet",
+      "reference_required": true,
+      "preserve_identity": true,
+      "preserve_color_palette": true,
+      "preserve_body_proportions": true,
+      "preserve_facial_structure": true,
+      "preserve_accessories": true,
+      "allow_expression_variations": true,
+      "allow_pose_variations": true,
+      "allow_contextual_illustrations": true,
+      "prohibit_character_redesign": true
+    }
+  },
+  "visual_style": {
+    "primary_style": "Glossy 3D-inspired mascot illustration",
+    "rendering": {
+      "lighting": "Soft studio lighting",
+      "shading": "Smooth gradient shading",
+      "highlights": "Soft white reflective highlights",
+      "shadows": "Subtle blue ambient shadows",
+      "depth": "Rounded dimensional appearance",
+      "material": "Smooth glossy finish"
+    },
+    "composition": {
+      "preferred_background": [
+        "White",
+        "Light blue",
+        "Very light neutral"
+      ],
+      "layout": "Clean, spacious, rounded, and organized",
+      "spacing": "Consistent spacing with sufficient breathing room",
+      "alignment": "Structured and balanced",
+      "visual_hierarchy": "Clear distinction between primary and supporting elements"
+    },
+    "shapes": {
+      "preferred": [
+        "Rounded rectangles",
+        "Soft circles",
+        "Oval shapes",
+        "Organic blob shapes",
+        "Smooth curved forms"
+      ],
+      "avoid": [
+        "Sharp aggressive geometry",
+        "Excessively complex shapes",
+        "Unnecessary decorative elements"
+      ]
+    },
+    "surface_style": {
+      "cards": "Soft rounded containers",
+      "borders": "Subtle light blue borders",
+      "shadows": "Minimal soft shadows",
+      "gradients": "Blue and cyan gradients",
+      "corners": "Rounded corners"
+    }
+  },
+  "illustration_system": {
+    "style": "Consistent MOCHI-based 3D-inspired illustrations",
+    "character_reference": "Master Character Design Sheet",
+    "use_cases": [
+      {
+        "name": "Welcome",
+        "description": "MOCHI greeting users with a friendly expression."
+      },
+      {
+        "name": "Empty State",
+        "description": "MOCHI expressing curiosity or confusion when no data is available."
+      },
+      {
+        "name": "Loading",
+        "description": "MOCHI performing a simple waiting or working animation."
+      },
+      {
+        "name": "Success",
+        "description": "MOCHI celebrating a successful action."
+      },
+      {
+        "name": "Error",
+        "description": "MOCHI displaying a concerned or apologetic expression."
+      },
+      {
+        "name": "404",
+        "description": "MOCHI looking confused or searching for missing content."
+      },
+      {
+        "name": "Onboarding",
+        "description": "MOCHI guiding users through academic platform features."
+      },
+      {
+        "name": "Dashboard",
+        "description": "MOCHI supporting academic information and dashboard interactions."
+      },
+      {
+        "name": "Notification",
+        "description": "MOCHI communicating reminders and academic announcements."
+      },
+      {
+        "name": "Feature Illustration",
+        "description": "MOCHI interacting with objects related to academic activities."
+      }
+    ],
+    "asset_guidelines": {
+      "preferred_format": [
+        "PNG",
+        "SVG",
+        "WebP"
+      ],
+      "background": "Transparent when used as an isolated mascot illustration",
+      "resolution": "High resolution",
+      "scalability": "Preserve visual clarity at different display sizes",
+      "animation_compatibility": true
+    }
+  },
+  "design_principles": {
+    "principles": [
+      {
+        "name": "Consistency",
+        "description": "All visual elements must maintain the same brand identity."
+      },
+      {
+        "name": "Simplicity",
+        "description": "Keep illustrations and interface elements simple and easy to understand."
+      },
+      {
+        "name": "Friendliness",
+        "description": "Use soft shapes, approachable expressions, and welcoming visual elements."
+      },
+      {
+        "name": "Clarity",
+        "description": "Prioritize readable information and clear visual hierarchy."
+      },
+      {
+        "name": "Accessibility",
+        "description": "Maintain sufficient contrast, readable typography, and understandable visual feedback."
+      },
+      {
+        "name": "Flexibility",
+        "description": "Allow MOCHI to appear in different poses and contexts without changing its identity."
+      },
+      {
+        "name": "Recognizability",
+        "description": "Preserve distinctive visual characteristics so MOCHI remains identifiable across the platform."
+      }
+    ]
+  },
+  "usage_guidelines": {
+    "approved_usage": [
+      "Website mascot",
+      "Dashboard illustrations",
+      "Empty state illustrations",
+      "Loading state animations",
+      "Onboarding illustrations",
+      "Success feedback",
+      "Error feedback",
+      "Notification illustrations",
+      "Feature illustrations",
+      "UI micro-interactions"
+    ],
+    "do": [
+      "Use the approved MOCHI reference image.",
+      "Preserve the original character silhouette.",
+      "Maintain the blue and cyan color palette.",
+      "Keep the graduation cap as a defining accessory.",
+      "Maintain consistent proportions and facial structure.",
+      "Use expressions appropriate to the interface context.",
+      "Use soft lighting and glossy shading.",
+      "Keep illustrations visually clean and approachable."
+    ],
+    "dont": [
+      "Do not redesign the original character.",
+      "Do not change the primary body shape.",
+      "Do not replace the graduation cap.",
+      "Do not introduce unrelated accessories.",
+      "Do not arbitrarily change the mascot color palette.",
+      "Do not add unnecessary anatomical features.",
+      "Do not use inconsistent illustration styles.",
+      "Do not distort the character proportions.",
+      "Do not create a different mascot interpretation."
+    ]
+  },
+  "ai_generation_guidelines": {
+    "purpose": "Generate consistent MOCHI illustrations for the Academic Information Platform.",
+    "reference_priority": [
+      "Original MOCHI logo reference",
+      "Master Character Design Sheet",
+      "DESIGN-BRAND.json"
+    ],
+    "generation_rules": {
+      "always_use_reference_image": true,
+      "preserve_character_identity": true,
+      "preserve_original_visual_language": true,
+      "preserve_color_palette": true,
+      "preserve_graduation_cap": true,
+      "preserve_eye_shape": true,
+      "preserve_body_proportions": true,
+      "allow_contextual_pose_changes": true,
+      "allow_contextual_expression_changes": true,
+      "avoid_unrequested_redesign": true
+    },
+    "prompt_requirements": [
+      "Use the exact MOCHI mascot identity from the supplied reference image.",
+      "Maintain the original rounded blue and white blob-like body.",
+      "Preserve the two white oval eyes.",
+      "Preserve the blue graduation cap and white tassel.",
+      "Use glossy 3D-inspired rendering with soft blue gradients.",
+      "Maintain consistent lighting, material, and proportions.",
+      "Change only the requested expression, pose, or activity.",
+      "Avoid introducing unrelated character features or accessories."
+    ],
+    "negative_prompt": [
+      "Different character design",
+      "Different body silhouette",
+      "Different mascot species",
+      "Missing graduation cap",
+      "Different eye shape",
+      "Unapproved body colors",
+      "Unnecessary limbs",
+      "Unrelated accessories",
+      "Flat cartoon redesign",
+      "Pixel art",
+      "Rough sketch",
+      "Harsh shadows",
+      "Inconsistent proportions",
+      "Distorted anatomy",
+      "Unrelated visual style"
+    ]
+  },
+  "brand_asset_management": {
+    "master_reference": "references/mochi-master.png",
+    "character_design_sheet": "references/mochi-character-design-sheet.png",
+    "expression_sheet": "references/mochi-expression-sheet.png",
+    "turnaround_sheet": "references/mochi-turnaround-sheet.png",
+    "illustration_directory": "illustrations/",
+    "asset_naming_convention": "mochi-{context}-{variant}.{extension}",
+    "recommended_structure": {
+      "brand": {
+        "design_file": "DESIGN-BRAND.json",
+        "references": [
+          "mochi-master.png",
+          "mochi-character-design-sheet.png",
+          "mochi-expression-sheet.png",
+          "mochi-turnaround-sheet.png"
+        ],
+        "illustrations": [
+          "mochi-welcome.png",
+          "mochi-empty-state.png",
+          "mochi-loading.png",
+          "mochi-success.png",
+          "mochi-error.png",
+          "mochi-404.png",
+          "mochi-onboarding.png"
+        ]
+      }
+    }
+  }
+}

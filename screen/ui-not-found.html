@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#ffff" />
+    <title>StudentConnect | Halaman Tidak Ditemukan</title>
+    <link rel="icon" href="../public/brand/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3/dist/index.global.js"></script>
+    <script src="https://unpkg.com/reicon/cdn/reicon.js"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+        --radius: 1rem;
+        --radius-sm: calc(var(--radius) * 0.6);
+        --radius-md: calc(var(--radius) * 0.8);
+        --radius-lg: var(--radius);
+        --radius-xl: calc(var(--radius) * 1.4);
+        --radius-2xl: calc(var(--radius) * 1.8);
+        --radius-3xl: calc(var(--radius) * 2.2);
+        --radius-4xl: calc(var(--radius) * 2.6);
+        --color-background: oklch(1 0 0);
+        --color-foreground: oklch(0.141 0.005 285.823);
+        --color-card: oklch(1 0 0);
+        --color-card-foreground: oklch(0.141 0.005 285.823);
+        --color-primary: #1c9cf0;
+        --color-primary-foreground: oklch(0.97 0.014 254.604);
+        --color-secondary: oklch(0.967 0.001 286.375);
+        --color-secondary-foreground: oklch(0.21 0.006 285.885);
+        --color-muted: oklch(0.967 0.001 286.375);
+        --color-muted-foreground: oklch(0.552 0.016 285.938);
+        --color-accent: oklch(0.967 0.001 286.375);
+        --color-accent-foreground: oklch(0.21 0.006 285.885);
+        --color-destructive: oklch(0.577 0.245 27.325);
+        --color-border: oklch(0.92 0.004 286.32);
+        --color-ring: oklch(0.705 0.015 286.067);
+      }
+    </style>
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+      html {
+        -webkit-tap-highlight-color: transparent;
+      }
+      .paper-grid {
+        background-image:
+          linear-gradient(
+            to right,
+            color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px,
+            transparent 1px
+          );
+        background-size: 26px 26px;
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          #000 0%,
+          transparent 80%
+        );
+        mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes bob {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-1deg);
+        }
+        50% {
+          transform: translateY(-10px) rotate(1deg);
+        }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .enter {
+          animation: rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+        .bob {
+          animation: bob 6s ease-in-out infinite;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="h-screen bg-background text-foreground antialiased"
+  >
+    <div
+      class="relative mx-auto flex h-full w-full max-w-[640px] flex-col overflow-hidden bg-card sm:border-x sm:border-border"
+    >
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+        <div class="paper-grid absolute inset-0 opacity-70"></div>
+        <div
+          class="absolute -top-32 left-1/2 size-64 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
+        ></div>
+      </div>
+
+      <main
+        class="relative flex min-h-0 flex-1 flex-col justify-between gap-4 px-5 pt-4 pb-[calc(1.25rem_+_env(safe-area-inset-bottom))] sm:px-6"
+      >
+        <figure class="enter relative min-h-20 flex-1">
+          <div
+              aria-hidden="true"
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-80 rounded-full bg-gradient-to-b from-primary/25 to-transparent"
+            ></div>
+          <div class="flex justify-center items-end h-full">
+            <img
+              src="../public/brand/not-found.png"
+              alt="Maskot MOCHI kebingungan saat mencari halaman yang tidak tersedia"
+              class="bob object-cover aspect-square scale-90"
+            />
+          </div>
+        </figure>
+
+        <div class="space-y-10">
+          <div class="enter shrink-0" style="animation-delay: 0.08s">
+            <p class="text-xs font-bold text-muted-foreground">Error 404</p>
+            <h1
+              class="mt-1 text-2xl leading-tight font-extrabold tracking-tight text-balance sm:text-3xl"
+            >
+              Halaman Tidak Ditemukan
+            </h1>
+            <p
+              class="mt-2 max-w-prose text-sm leading-6 text-muted-foreground text-pretty"
+            >
+              Halaman yang kamu cari tidak tersedia. Periksa kembali alamat
+              tautan.
+            </p>
+          </div>
+
+          <div
+            class="enter flex shrink-0 flex-col"
+            style="animation-delay: 0.16s"
+          >
+            <!-- ponytail: teks gelap di atas primary #1c9cf0 agar kontras >= 4.5 -->
+            <a
+              href="./ui-splash-screen.html"
+              class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-6 text-sm font-bold text-primary-foreground shadow-sm transition hover:bg-primary/90 active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+            >
+              <re-icon icon="home" size="18"></re-icon>
+              Kembali ke Beranda
+            </a>
+            <p
+              class="mt-4 text-center text-xs text-muted-foreground text-pretty"
+            >
+              Masih mengalami kendala? Hubungi admin untuk mendapatkan bantuan
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
