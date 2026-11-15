@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <ScreenShell>
-      <main className="relative flex flex-1 flex-col justify-between gap-4 px-5 pt-4 pb-[calc(1.25rem_+_env(safe-area-inset-bottom))] sm:px-6">
+      <main className="my-10 relative flex flex-1 flex-col justify-between gap-4 px-5 pt-4 pb-[calc(1.25rem_+_env(safe-area-inset-bottom))] sm:px-6">
         <figure className="relative flex min-h-20 flex-1 items-center justify-center">
           <div
             aria-hidden="true"
@@ -36,7 +36,7 @@ export default function NotFound() {
             <p className="text-xs font-bold text-muted-foreground">
               {copy.eyebrow}
             </p>
-            <h1 className="mt-1 text-2xl leading-tight font-extrabold tracking-tight text-balance sm:text-3xl">
+            <h1 className="mt-1 text-2xl leading-wider font-extrabold tracking-tight text-balance sm:text-3xl">
               {copy.heading}
             </h1>
             <p className="mt-2 max-w-prose text-sm leading-6 text-muted-foreground text-pretty">

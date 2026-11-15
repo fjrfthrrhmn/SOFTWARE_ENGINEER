@@ -1,19 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Geist, Geist_Mono, Outfit, Plus_Jakarta_Sans, Roboto } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const outfitHeading = Outfit({
+const fontHeading = Outfit({
   subsets: ["latin"],
   variable: "--font-heading",
 });
 
-const geistSans = Geist({
+const fontSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const fontMono = Geist_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
 });
@@ -36,12 +36,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={cn(
         "h-full",
         "antialiased",
-        geistSans.variable,
-        geistMono.variable,
-        outfitHeading.variable,
+        fontSans.variable,
+        fontMono.variable,
+        fontHeading.variable,
       )}
     >
-      <body className="min-h-full bg-zinc-50">
+      <body className="min-h-full">
         <div className="mx-auto flex min-h-dvh w-full max-w-160 flex-col">
           {children}
         </div>

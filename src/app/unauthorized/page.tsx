@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function UnauthorizedPage() {
   return (
     <ScreenShell>
-      <main className="relative flex flex-1 flex-col justify-between gap-4 px-5 pt-4 pb-[calc(1.25rem_+_env(safe-area-inset-bottom))] sm:px-6">
+      <main className="my-10 relative flex flex-1 flex-col justify-between gap-4 px-5 pt-4 pb-[calc(1.25rem_+_env(safe-area-inset-bottom))] sm:px-6">
         <figure className="relative flex min-h-20 flex-1 items-center justify-center">
           <div
             aria-hidden="true"
