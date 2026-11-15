@@ -22,7 +22,7 @@
 | Fase | Fokus | FR | Status |
 |---|---|---|---|
 | M0 | Foundation: scaffold, dependency, schema, dokumentasi | — | Selesai |
-| M1 | Autentikasi dan otorisasi | FR-1, FR-2, FR-6, FR-7, FR-14, FR-15 | Belum |
+| M1 | Autentikasi dan otorisasi | FR-1, FR-2, FR-6, FR-7, FR-14, FR-15 | Selesai |
 | M2 | Read views: jadwal dan materi | FR-3, FR-4, FR-5, FR-8, FR-9, FR-10 | Belum |
 | M3 | Dosen mengelola materi | FR-11, FR-12, FR-13 | Belum |
 | M4 | Admin mengelola pengguna dan jadwal | FR-16 s.d. FR-23 | Belum |
@@ -63,15 +63,16 @@
 
 **Deliverable**
 
-- Halaman login tunggal yang menerima email per peran (NIM untuk mahasiswa).
+- Halaman login tunggal yang menerima email dan password untuk semua peran.
 - Verifikasi password dan status akun aktif.
 - Session cookie dan logout.
 - Redirect per peran setelah login.
 - Guard layout per peran dan validasi di server action.
+- Gating onboarding berbasis cookie untuk pengunjung baru.
 
 **Exit criteria**
 
-- Semua peran login melalui kolom `email`; mahasiswa memakai NIM pada kolom tersebut.
+- Semua peran memiliki email asli; login memakai email dan password, bukan NIM.
 - Akun nonaktif ditolak.
 - Logout menghapus session.
 - Pengguna tidak dapat membuka route peran lain.

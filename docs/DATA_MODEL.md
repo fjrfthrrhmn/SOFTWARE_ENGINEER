@@ -36,7 +36,7 @@ Semua tabel memakai primary key `bigserial` dan kolom `created_at`, `updated_at`
 | `created_at` | timestamptz | not null, default now |
 | `updated_at` | timestamptz | not null, default now |
 
-`email` menyimpan identifier login. Untuk mahasiswa berisi NIM (Q-01); dosen dan admin memakai email (Q-10).
+`email` menyimpan email asli untuk semua peran dan menjadi satu-satunya kredensial login. NIM tetap disimpan di `mahasiswa.nim` sebagai data profil (D-29).
 
 ### 2.2 `program_studi`
 
@@ -195,7 +195,7 @@ Soft delete jadwal memakai `status = 'dibatalkan'`, bukan `DELETE` (Q-04).
 | `jadwal_kuliah.nama` | Ada | Tidak ada | Dihapus. Status: Q-06 dijawab |
 | Atribut `kurikulum` | Hanya FK program studi dan mata kuliah | Class kosong | Tambah `tahun_kurikulum` text; unique gabungan termasuk tahun. Status: Q-07 dan Q-15 dijawab |
 | Relasi prodi ke mata kuliah | Lewat `kurikulum` | Lewat `kurikulum` | Sesuai |
-| Login mahasiswa | `pengguna.email` | `Pengguna.email` | Diisi NIM untuk mahasiswa. Status: Q-01 dijawab |
+| Login semua peran | `pengguna.email` | `Pengguna.email` | Email asli dan satu-satunya kredensial login; NIM tetap di `mahasiswa.nim` sebagai data profil. Status: D-29 |
 
 Perbedaan sudah diputuskan di `docs/OPEN_QUESTIONS.md` dan wajib diikuti implementasinya.
 
@@ -208,7 +208,7 @@ Perbedaan sudah diputuskan di `docs/OPEN_QUESTIONS.md` dan wajib diikuti impleme
 - 1 admin: email dari `SEED_ADMIN_EMAIL`.
 - 1 program studi: Teknik Informatika.
 - 1 dosen: Budi Santoso, M.Kom.
-- 1 mahasiswa: NIM `23123456`, angkatan 2023.
+- 1 mahasiswa: email `dhandy.amir@studentconnect.local`, NIM `23123456`, angkatan 2023.
 - 1 mata kuliah: COMP6047 Rekayasa Perangkat Lunak.
 - 1 kurikulum, 1 jadwal Senin 08:00-10:30 di B201, 1 materi.
 
@@ -216,7 +216,7 @@ Perbedaan sudah diputuskan di `docs/OPEN_QUESTIONS.md` dan wajib diikuti impleme
 
 Seed bersifat idempoten secara kasar: jika tabel `pengguna` sudah berisi data, seed dilewati.
 
-Implementasi `src/db/seed.ts` memakai `bcryptjs` (`hashSync`, cost 10) agar hash seed dapat diverifikasi auth M1 (D-11). Email admin diambil dari `SEED_ADMIN_EMAIL`; seed gagal sebelum menulis database jika email/password kosong atau password kurang dari 8 karakter.
+Implementasi `src/db/seed.ts` memakai `bcryptjs` (`hashSync`, cost 10) agar hash seed dapat diverifikasi auth M1 (D-11). Email admin diambil dari `SEED_ADMIN_EMAIL`; seed gagal sebelum menulis database jika email/password kosong atau password kurang dari 8 karakter. Database yang sudah ter-seed sebelum D-29 perlu backfill sekali: ubah `pengguna.email` mahasiswa dari NIM menjadi email seed. Login memakai email, bukan NIM.
 
 ---
 

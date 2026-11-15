@@ -170,6 +170,7 @@ src/app/
 | No. | Nama Halaman       | Tujuan                                                                                               | Route              |
 | --- | ------------------ | ---------------------------------------------------------------------------------------------------- | ------------------ |
 | 1   | Splash Screen      | Menampilkan branding dan mempersiapkan aplikasi saat pertama kali dibuka.                            | `/`                |
+| 1a  | Onboarding         | Menjelaskan fitur utama sekali per browser sebelum pengguna masuk.                                   | `/onboarding`      |
 | 2   | Login              | Autentikasi mahasiswa, dosen, dan admin.                                                             | `/login`           |
 | 3   | General Dashboard  | Dashboard bersama mahasiswa dan dosen, menampilkan informasi sesuai role pengguna.                   | `/dashboard`       |
 | 4   | Jadwal Perkuliahan | Menampilkan jadwal berdasarkan role: mahasiswa melihat jadwal kuliah, dosen melihat jadwal mengajar. | `/schedule`        |
@@ -231,7 +232,7 @@ Mekanisme session (Q-02, Q-16):
 Batasan yang tidak berubah:
 
 - Password tidak pernah disimpan plaintext.
-- Semua peran login melalui kolom `email`; mahasiswa memakai NIM pada kolom tersebut (Q-01, Q-10).
+- `pengguna.email` menyimpan email asli semua peran dan menjadi satu-satunya kredensial login; NIM hanya data profil (`mahasiswa.nim`) (D-29).
 - Setiap server action memeriksa session dan peran; UI bukan batas keamanan.
 - Guard per peran ditempatkan pada layout `(app)` dan `admin`.
 - Redirect optimistik boleh memakai `proxy.ts` (pengganti middleware di Next.js 16), tetapi bukan pengganti pemeriksaan server.

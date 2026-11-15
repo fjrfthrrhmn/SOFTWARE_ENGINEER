@@ -37,7 +37,7 @@
 | D-14 | 2026-11-14 | Atribut kurikulum (Q-07)? | Tambah `tahun_kurikulum` | Diputuskan |
 | D-15 | 2026-11-14 | Kredensial admin seed (Q-08)? | Wajib dari environment; seed gagal jika kosong | Diputuskan |
 | D-16 | 2026-11-14 | Cakupan PWA dan E2E (Q-09)? | Manifest saja + E2E dasar | Diputuskan |
-| D-17 | 2026-11-14 | Identifier login dosen dan admin (Q-10)? | Semua peran melalui kolom `email`; mahasiswa memakai NIM sesuai Q-01 | Diputuskan |
+| D-17 | 2026-11-14 | Identifier login dosen dan admin (Q-10)? | Semua peran melalui kolom `email`; mahasiswa memakai NIM sesuai Q-01 | Digantikan D-29 |
 | D-18 | 2026-11-14 | Penyimpanan materi (Q-11)? | Google Drive (digantikan D-21) | Diputuskan |
 | D-19 | 2026-11-14 | Periode jadwal (Q-12)? | Jadwal berlaku saat ini, tanpa periode | Diputuskan |
 | D-20 | 2026-11-14 | Riwayat absensi (Q-13)? | Dihapus dari scope | Diputuskan |
@@ -49,6 +49,7 @@
 | D-26 | 2026-11-14 | Kapan schema Q-05/Q-06/Q-07/Q-15 diterapkan dan bagaimana migrasinya (Q-19)? | M0: sinkronkan schema lalu regenerasi baseline `0000` karena database belum pernah dimigrasikan | Diputuskan |
 | D-27 | 2026-11-14 | Kapan seed beralih dari scrypt ke bcryptjs? | M0, bersamaan dengan sinkronisasi seed; tidak menunggu M1 | Diputuskan |
 | D-28 | 2026-11-15 | Perlu dependency `motion` untuk splash dan onboarding? | Ya. Implementasi memakai `motion` v14 (sudah terpasang) untuk entrance, bob, dan progress bar; carousel memakai shadcn `carousel` + `embla-carousel-react`. `prefers-reduced-motion` tetap dihormati via `useReducedMotion` | Diputuskan |
+| D-29 | 2026-11-15 | Kredensial login dan isi `pengguna.email` (menggantikan Q-01, Q-10, D-17)? | Login memakai email dan password untuk semua peran; `pengguna.email` menyimpan email asli; email dibandingkan case-insensitive; NIM bukan kredensial dan tetap di `mahasiswa.nim` sebagai data profil | Diputuskan final |
 
 ---
 
@@ -56,7 +57,7 @@
 
 | ID | Tanggal | Pertanyaan | Jawaban | Status | Dampak |
 |---|---|---|---|---|---|
-| Q-01 | 2026-11-14 | Identifier login mahasiswa: NIM sebagai email atau email terpisah? | NIM | Dijawab | `pengguna.email` diisi NIM untuk mahasiswa |
+| Q-01 | 2026-11-14 | Identifier login mahasiswa: NIM sebagai email atau email terpisah? | NIM | Digantikan D-29 | `pengguna.email` diisi NIM untuk mahasiswa |
 | Q-02 | 2026-11-14 | Mekanisme session dan hashing password? | `bcryptjs` (hash), `jose` (JWT), Next.js `cookies()` (token), middleware/DAL kustom (role) | Dijawab | M1; dependency, `src/lib/auth.ts`, seed |
 | Q-03 | 2026-11-14 | `fileUrl` materi: URL saja, upload, atau keduanya? | URL dan upload file | Dijawab | M3, storage, dependency upload |
 | Q-04 | 2026-11-14 | Delete jadwal: hard delete atau soft delete? | Soft delete via `status = dibatalkan` | Dijawab | M4, query read, recovery |
@@ -65,7 +66,7 @@
 | Q-07 | 2026-11-14 | Atribut `kurikulum` kosong di Class Diagram? | Tambah `tahun_kurikulum` | Dijawab | Schema `kurikulum`, unique, filter |
 | Q-08 | 2026-11-14 | Kredensial admin seed? | Wajib dari environment; seed gagal jika kosong | Dijawab | `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD`, setup dan deploy |
 | Q-09 | 2026-11-14 | Cakupan PWA dan E2E? | Manifest saja + E2E dasar | Dijawab | M5; tanpa service worker/offline |
-| Q-10 | 2026-11-14 | Identifier login dosen dan admin: email atau kode? | Semua peran melalui kolom `email`; mahasiswa memakai NIM sesuai Q-01 | Dijawab | M1; form login, seed |
+| Q-10 | 2026-11-14 | Identifier login dosen dan admin: email atau kode? | Semua peran melalui kolom `email`; mahasiswa memakai NIM sesuai Q-01 | Digantikan D-29 | M1; form login, seed |
 | Q-11 | 2026-11-14 | Provider penyimpanan/upload materi? | Vercel Blob (final, menggantikan Google Drive; D-21) | Dijawab | M3; dependency `@vercel/blob`, env token, `file_url` |
 | Q-12 | 2026-11-14 | Jadwal perlu periode/semester? | Jadwal berlaku saat ini, tanpa periode | Dijawab | Schema tidak berubah; filter tampilan |
 | Q-13 | 2026-11-14 | Riwayat absensi disebut di FR-23, tetapi tidak ada tabel/FR absensi. Apakah diperlukan? | Hapus aturan verifikasi absensi dari scope | Dijawab | FR-23; tidak ada tabel absensi |
@@ -80,4 +81,4 @@
 
 ## 4. Detail Pertanyaan Terbuka
 
-Tidak ada pertanyaan terbuka per 2026-11-14. Semua keputusan sudah dicatat pada bagian Keputusan dan Pertanyaan.
+Tidak ada pertanyaan terbuka per 2026-11-15. Semua keputusan sudah dicatat pada bagian Keputusan dan Pertanyaan.

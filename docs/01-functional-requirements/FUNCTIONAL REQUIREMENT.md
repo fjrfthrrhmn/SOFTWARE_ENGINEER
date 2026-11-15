@@ -6,7 +6,7 @@
 
 | No.       | Aktor     | Functional Requirement             | Domain   | Deskripsi                                                                                           |
 | --------- | --------- | ---------------------------------- | -------- | --------------------------------------------------------------------------------------------------- |
-| **FR-1**  | Mahasiswa | Login                              | Pengguna | Mahasiswa login menggunakan NIM dan password yang terdaftar.                                        |
+| **FR-1**  | Mahasiswa | Login                              | Pengguna | Mahasiswa login menggunakan akun yang terdaftar.                                                    |
 | **FR-2**  | Mahasiswa | Logout                             | Pengguna | Mahasiswa keluar dari sistem.                                                                       |
 | **FR-3**  | Mahasiswa | Melihat Jadwal Kuliah              | Jadwal   | Mahasiswa melihat jadwal perkuliahan pada kurikulum program studi mahasiswa.                        |
 | **FR-4**  | Mahasiswa | Melihat Daftar Materi Pembelajaran | Materi   | Mahasiswa melihat daftar materi pembelajaran pada mata kuliah di kurikulum program studi mahasiswa. |

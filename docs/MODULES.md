@@ -40,12 +40,12 @@ Alur pemanggilan: `page.tsx` → `actions.ts` → `service.ts` → `repository.t
 * **Entity:** `pengguna` (baca), `mahasiswa`, `dosen`, `admin` (untuk menentukan profil aktif).
 * **FR terkait:** FR-1, FR-2, FR-6, FR-7, FR-14, FR-15.
 * **Antarmuka Publik / Layanan Utama:**
-  * `login({ email, password })`: Memvalidasi kredensial, memeriksa status `aktif`, lalu membuat sesi.
+  * `login({ email, password })`: Memvalidasi kredensial lewat email, memeriksa status `aktif`, lalu membuat sesi.
   * `logout()`: Menghapus cookie sesi.
   * `getSession()`: Mengembalikan sesi aktif atau `null`.
   * `requireRole(allowedRoles)`: Menolak akses bila sesi tidak ada atau peran tidak diizinkan.
 * **Aturan Bisnis:**
-  * Semua peran login melalui kolom `email`;(Q-01, Q-10).
+  * `pengguna.email` menyimpan email asli untuk semua peran dan menjadi satu-satunya kredensial login; NIM bukan kredensial (D-29).
   * Akun `nonaktif` tidak dapat login.
   * Password di-hash dengan `bcryptjs` dan tidak pernah disimpan plaintext (Q-02).
   * JWT dibuat/diverifikasi dengan `jose`, berlaku 7 hari tanpa refresh token, dan disimpan pada cookie `studentconnect_session` yang `HttpOnly`, `Secure` di produksi, serta `SameSite=Lax` (Q-16).
@@ -68,7 +68,7 @@ Alur pemanggilan: `page.tsx` → `actions.ts` → `service.ts` → `repository.t
   * `updateUser(id, input)`: Mengubah data pengguna dan profilnya.
   * `deactivateUser(id)`: Mengubah status menjadi `nonaktif`.
 * **Aturan Bisnis:**
-  * `email` unik. Untuk mahasiswa, `email` diisi NIM (Q-01).
+  * `email` unik dan berisi email asli. NIM mahasiswa unik dan disimpan terpisah di `mahasiswa.nim` (D-29).
   * Satu `pengguna` hanya memiliki satu profil sesuai peran.
   * Admin hanya dapat menambah peran mahasiswa atau dosen (FR-17).
   * Menonaktifkan pengguna tidak menghapus data (FR-19).
