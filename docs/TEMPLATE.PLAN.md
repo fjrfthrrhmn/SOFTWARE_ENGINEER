@@ -4,7 +4,7 @@
 > AI Agent DILARANG mengubah atau menulis task ke file ini.
 >
 > Buat PLAN baru untuk setiap task berdasarkan branch aktif:
-> - Frontend: `docs/PLAN/frontend/m<berapa>-<name>.md`
+> OUTPUT file plan: `docs/00-plan/m<berapa>-<nama>.md`
 >
 > PLAN adalah **Living Implementation Contract** yang diperbarui selama eksekusi.
 

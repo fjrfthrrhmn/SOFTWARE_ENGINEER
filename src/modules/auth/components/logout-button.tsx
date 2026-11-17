@@ -1,14 +1,21 @@
-import { Logout } from "reicon-react"
-import { Button } from "@/shared/components/ui/button"
-import { logout } from "../actions"
+import { Logout } from "reicon-react";
+import { Button } from "@/shared/components/ui/button";
+import { logout as handleLogout } from "../actions";
 
 export function LogoutButton() {
+
   return (
-    <form action={logout}>
-      <Button type="submit" variant="outline" size="lg" className="w-full">
+    <form action={handleLogout} className="w-full">
+      <Button
+        type="submit"
+        variant="destructive"
+        size="sm"
+        className="w-full"
+        aria-label="Keluar"
+      >
         <Logout size={16} />
-        Keluar
+        <span>Keluar</span>
       </Button>
     </form>
-  )
+  );
 }

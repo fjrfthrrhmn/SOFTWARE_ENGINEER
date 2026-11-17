@@ -1,8 +1,8 @@
-export type Role = "mahasiswa" | "dosen" | "admin"
+import type { UserRole } from "@/modules/users/types"
 
 export type Session = {
   userId: number
-  role: Role
+  role: UserRole
 }
 
 export type LoginInput = {
@@ -11,7 +11,7 @@ export type LoginInput = {
 }
 
 export type LoginResult =
-  | { ok: true; userId: number; role: Role }
+  | { ok: true; userId: number; role: UserRole }
   | {
       ok: false
       error: "invalid_input"
@@ -26,10 +26,11 @@ export type LoginResult =
         | "server_error"
     }
 
-export function isRole(value: unknown): value is Role {
+export function isRole(value: unknown): value is UserRole {
   return value === "mahasiswa" || value === "dosen" || value === "admin"
 }
 
-export function roleHome(role: Role) {
-  return role === "admin" ? "/admin" : "/dashboard"
+export function roleHome(role: UserRole) {
+  void role
+  return "/dashboard"
 }

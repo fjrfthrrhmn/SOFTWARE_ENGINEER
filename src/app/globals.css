@@ -147,3 +147,69 @@
     mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .wave {
+    animation: wave 2.4s ease-in-out infinite;
+    transform-origin: 50% 90%;
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(22deg);
+  }
+  30% {
+    transform: rotate(-9deg);
+  }
+  45% {
+    transform: rotate(18deg);
+  }
+  60% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(12deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a1a1aa;
+  border-radius: 999px;
+}
+
+/* Remove scrollbar arrow buttons */
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Scrollbar corner */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Scoped to AnimatedThemeToggler — the toggler sets the data-attribute and the variable only during a theme toggle. */
+html[data-magicui-theme-vt="active"]::view-transition-group(root) {
+  animation-duration: var(--magicui-theme-toggle-vt-duration);
+}

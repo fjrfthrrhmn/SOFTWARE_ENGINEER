@@ -32,7 +32,12 @@ export function LoginForm() {
           title: feedback.title,
           description: feedback.description,
         });
-      }
+      } 
+
+      form.reset({
+        email: "",
+        password: ""
+      });
     },
   });
 

@@ -139,23 +139,21 @@ Struktur folder `src/app/`.
 
 ```text
 src/app/
-├── (auth)/
-│   └── login/page.tsx              # /login
-├── (app)/
-│   ├── layout.tsx                  # guard role terautentikasi
-│   ├── dashboard/page.tsx          # /dashboard
-│   ├── schedule/page.tsx           # /schedule
-│   ├── materials/
-│   │   ├── page.tsx                # /materials
-│   │   └── [id]/page.tsx           # /materials/[id]
-│   ├── profile/page.tsx            # /profile
-│   └── settings/page.tsx           # /settings
-├── admin/
-│   ├── layout.tsx                  # guard role admin
-│   ├── page.tsx                    # /admin
-│   ├── users/page.tsx              # /admin/users
-│   └── schedules/page.tsx          # /admin/schedules
-├── unauthorized/page.tsx           # /unauthorized
+├── (root)/
+│   ├── (auth)/
+│   │   └── login/page.tsx          # /login
+│   ├── (app)/
+│   │   ├── layout.tsx              # guard session
+│   │   ├── dashboard/page.tsx      # /dashboard (semua role)
+│   │   ├── schedule/page.tsx       # /schedule
+│   │   ├── materials/
+│   │   │   ├── page.tsx            # /materials
+│   │   │   └── [id]/page.tsx       # /materials/[id]
+│   │   ├── profile/page.tsx        # /profile
+│   │   └── settings/page.tsx       # /settings
+│   ├── onboarding/page.tsx         # /onboarding
+│   └── unauthorized/page.tsx       # /unauthorized
+├── api/                            # route handler bila diperlukan
 ├── layout.tsx                      # root layout
 ├── manifest.ts                     # manifest PWA
 ├── globals.css                     # Tailwind dan token shadcn

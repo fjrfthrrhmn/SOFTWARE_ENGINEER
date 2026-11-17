@@ -1,28 +1,70 @@
 import { eq, sql } from "drizzle-orm"
 import { db } from "@/db"
-import { pengguna } from "@/db/schema"
-import type { Role } from "@/modules/auth/types"
+import { admin, dosen, mahasiswa, pengguna, programStudi } from "@/db/schema"
+import type { User, UserWithProfile } from "./types"
 
-export type AuthUser = {
-  id: number
-  passwordHash: string
-  role: Role
-  status: "aktif" | "nonaktif"
-}
-
-export async function findAuthUserByEmail(email: string): Promise<AuthUser | null> {
+export async function findAuthUserByEmail(email: string): Promise<User | null> {
   const value = email.trim().toLowerCase()
 
   const [user] = await db
-    .select({
-      id: pengguna.id,
-      passwordHash: pengguna.passwordHash,
-      role: pengguna.role,
-      status: pengguna.status,
-    })
+    .select()
     .from(pengguna)
     .where(eq(sql`lower(${pengguna.email})`, value))
     .limit(1)
 
   return user ?? null
+}
+
+export async function getUserProfile(
+  userId: number,
+): Promise<UserWithProfile | null> {
+  const [row] = await db
+    .select({
+      user: {
+        id: pengguna.id,
+        email: pengguna.email,
+        role: pengguna.role,
+        status: pengguna.status,
+        createdAt: pengguna.createdAt,
+        updatedAt: pengguna.updatedAt,
+      },
+      student: mahasiswa,
+      studyProgram: programStudi,
+      lecturer: dosen,
+      adminProfile: admin,
+    })
+    .from(pengguna)
+    .leftJoin(mahasiswa, eq(mahasiswa.idPengguna, pengguna.id))
+    .leftJoin(programStudi, eq(programStudi.id, mahasiswa.idProgramStudi))
+    .leftJoin(dosen, eq(dosen.idPengguna, pengguna.id))
+    .leftJoin(admin, eq(admin.idPengguna, pengguna.id))
+    .where(eq(pengguna.id, userId))
+    .limit(1)
+
+  if (!row) return null
+
+  if (row.user.role === "mahasiswa") {
+    return {
+      ...row.user,
+      role: "mahasiswa",
+      profile: row.student,
+      studyProgram: row.studyProgram,
+    }
+  }
+
+  if (row.user.role === "dosen") {
+    return {
+      ...row.user,
+      role: "dosen",
+      profile: row.lecturer,
+      studyProgram: null,
+    }
+  }
+
+  return {
+    ...row.user,
+    role: "admin",
+    profile: row.adminProfile,
+    studyProgram: null,
+  }
 }

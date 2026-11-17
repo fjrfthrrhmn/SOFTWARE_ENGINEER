@@ -2,12 +2,8 @@ import { cache } from "react"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { jwtVerify, SignJWT } from "jose"
-import {
-  isRole,
-  roleHome,
-  type Role,
-  type Session,
-} from "@/modules/auth/types"
+import { isRole, roleHome, type Session } from "@/modules/auth/types"
+import type { UserRole } from "@/modules/users/types"
 
 const SESSION_COOKIE = "studentconnect_session"
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7
@@ -80,7 +76,7 @@ export async function deleteSession() {
   })
 }
 
-export async function requireRole(roles: Role[]) {
+export async function requireRole(roles: UserRole[]) {
   const session = await getSession()
 
   if (!session) redirect("/login")

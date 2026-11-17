@@ -4,7 +4,7 @@ import { expect } from "e2e"
 
 config({ path: ".env.local" })
 
-test("mahasiswa can sign in, is guarded from admin, and can sign out", async ({
+test("mahasiswa can sign in, sees dashboard, and can sign out", async ({
   app,
   screen,
   browser,
@@ -20,16 +20,14 @@ test("mahasiswa can sign in, is guarded from admin, and can sign out", async ({
 
   await app.open("/dashboard")
   await expect(browser).toHaveURL("/dashboard")
+  await expect(screen.getByText("Sepertinya ada kendala")).toBeVisible()
 
-  await app.open("/admin")
-  await expect(browser).toHaveURL("/unauthorized")
-
-  await app.open("/dashboard")
+  await screen.getByRole("button", "Buka profil pengguna").click()
   await screen.getByRole("button", "Keluar").click()
   await expect(browser).toHaveURL("/login")
 })
 
-test("admin can sign in and lands in the admin area", async ({
+test("admin can sign in and lands on dashboard", async ({
   app,
   screen,
   browser,
@@ -48,9 +46,17 @@ test("admin can sign in and lands in the admin area", async ({
 
   await expect(browser).toHaveURL("/onboarding")
 
-  await app.open("/admin")
-  await expect(browser).toHaveURL("/admin")
-  await expect(screen.getByRole("heading", "Admin")).toBeVisible()
+  await app.open("/dashboard")
+  await expect(browser).toHaveURL("/dashboard")
+  await expect(screen.getByText(/Selamat .*, Admin/)).toBeVisible()
+  await expect(screen.getByText("Ringkasan")).toBeVisible()
+  await expect(screen.getByText("Aksi cepat")).toBeVisible()
+  await expect(
+    screen.getByRole("navigation", "Navigasi utama"),
+  ).toBeVisible()
+  await expect(screen.getByRole("link", "Pengguna")).toBeVisible()
+  await expect(screen.getByRole("link", "Jadwal Kuliah")).toBeVisible()
+  await expect(screen.getByRole("button", "Ganti tema")).toBeVisible()
 })
 
 test("wrong password stays on login with a generic error", async ({
@@ -85,6 +91,7 @@ test("mahasiswa and dosen can sign in by email", async ({
 
   await app.open("/dashboard")
   await expect(browser).toHaveURL("/dashboard")
+  await screen.getByRole("button", "Buka profil pengguna").click()
   await screen.getByRole("button", "Keluar").click()
   await expect(browser).toHaveURL("/login")
 

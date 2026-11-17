@@ -1,0 +1,625 @@
+﻿<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#1c9cf0" />
+    <title>StudentConnect | Dashboard Dosen</title>
+    <link rel="icon" href="../public/brand/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3/dist/index.global.js"></script>
+    <script src="https://unpkg.com/reicon/cdn/reicon.js"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+        --radius: 0.95rem;
+        --radius-sm: calc(var(--radius) * 0.6);
+        --radius-md: calc(var(--radius) * 0.8);
+        --radius-lg: var(--radius);
+        --radius-xl: calc(var(--radius) * 1.4);
+        --radius-2xl: calc(var(--radius) * 1.8);
+        --radius-3xl: calc(var(--radius) * 2.2);
+        --radius-4xl: calc(var(--radius) * 2.6);
+        --color-background: oklch(1 0 0);
+        --color-foreground: oklch(0.141 0.005 285.823);
+        --color-card: oklch(1 0 0);
+        --color-card-foreground: oklch(0.141 0.005 285.823);
+        --color-primary: #1c9cf0;
+        --color-primary-foreground: oklch(0.97 0.014 254.604);
+        --color-secondary: oklch(0.967 0.001 286.375);
+        --color-secondary-foreground: oklch(0.21 0.006 285.885);
+        --color-muted: oklch(0.967 0.001 286.375);
+        --color-muted-foreground: oklch(0.552 0.016 285.938);
+        --color-accent: oklch(0.967 0.001 286.375);
+        --color-accent-foreground: oklch(0.21 0.006 285.885);
+        --color-destructive: oklch(0.577 0.245 27.325);
+        --color-border: oklch(0.92 0.004 286.32);
+        --color-ring: oklch(0.705 0.015 286.067);
+      }
+    </style>
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+      html {
+        -webkit-tap-highlight-color: transparent;
+      }
+      .paper-grid {
+        background-image:
+          linear-gradient(
+            to right,
+            color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px,
+            transparent 1px
+          );
+        background-size: 26px 26px;
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          #000 0%,
+          transparent 80%
+        );
+        mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes bob {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-1deg);
+        }
+        50% {
+          transform: translateY(-8px) rotate(1deg);
+        }
+      }
+      @keyframes wave {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        15% {
+          transform: rotate(22deg);
+        }
+        30% {
+          transform: rotate(-9deg);
+        }
+        45% {
+          transform: rotate(18deg);
+        }
+        60% {
+          transform: rotate(-5deg);
+        }
+        75% {
+          transform: rotate(12deg);
+        }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .enter {
+          animation: rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+        .bob {
+          animation: bob 6s ease-in-out infinite;
+        }
+        .wave {
+          animation: wave 2.4s ease-in-out infinite;
+          transform-origin: 50% 90%;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-dvh bg-background text-foreground antialiased">
+    <div
+      class="relative mx-auto flex min-h-dvh w-full max-w-[640px] flex-col bg-background sm:border-x sm:border-border"
+    >
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+        <div class="paper-grid absolute inset-0 opacity-60"></div>
+        <div
+          class="absolute -top-28 left-1/2 size-64 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
+        ></div>
+      </div>
+
+      <header
+        class="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border/70 bg-background/50 px-5 py-3 pt-[calc(0.75rem_+_env(safe-area-inset-top))] backdrop-blur-md sm:px-6"
+      >
+        <a
+          href="#"
+          aria-label="StudentConnect"
+          class="flex items-center gap-2 rounded-lg focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+        >
+          <img
+            src="../public/brand/icon.png"
+            alt=""
+            class="size-9 rounded-lg ring-1 ring-border"
+          />
+          <span class="text-sm font-extrabold tracking-tight">
+            StudentConnect
+          </span>
+        </a>
+
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Notifikasi"
+            class="relative flex size-10 items-center justify-center rounded-full bg-card text-foreground shadow-sm ring-1 ring-border active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+          >
+            <re-icon icon="bell" size="18" class="stroke-2"></re-icon>
+            <span
+              class="absolute top-2.5 right-2.5 size-2 rounded-full bg-destructive ring-2 ring-card"
+            ></span>
+          </button>
+          <button
+            type="button"
+            aria-label="Buka profil Dr. Rina"
+            class="flex size-10 items-center justify-center rounded-full bg-primary text-xs font-extrabold text-primary-foreground shadow-sm ring-2 ring-card active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+          >
+            RK
+          </button>
+        </div>
+      </header>
+
+      <main
+        class="relative flex flex-1 flex-col gap-7 px-5 pt-6 pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:px-6"
+      >
+        <section class="enter flex items-center justify-between gap-3">
+          <div class="min-w-0">
+            <p class="text-xs font-semibold text-primary">
+              Senin, 16 November 2026
+            </p>
+            <h1
+              class="mt-1.5 text-[22px] leading-tight font-extrabold tracking-tight text-balance sm:text-2xl"
+            >
+              Selamat pagi, Dr. Rina
+            </h1>
+            <p
+              class="mt-1.5 max-w-[26ch] text-sm leading-6 text-muted-foreground"
+            >
+              Siap mengajar hari ini?
+            </p>
+          </div>
+          <figure class="relative shrink-0" aria-hidden="true">
+            <span
+              class="absolute inset-1 rounded-full bg-primary/15 blur-xl"
+            ></span>
+            <img
+              src="../public/brand/greeting.png"
+              alt=""
+              class="bob relative size-28 object-contain sm:size-32"
+            />
+            <span
+              class="wave absolute bottom-8 left-0 text-2xl leading-none drop-shadow-sm select-none"
+            >
+              👋🏻
+            </span>
+          </figure>
+        </section>
+
+        <section aria-labelledby="schedule-heading">
+          <div class="flex items-baseline justify-between gap-3">
+            <h2
+              id="schedule-heading"
+              class="text-base font-bold tracking-tight"
+            >
+              Jadwal mengajar
+            </h2>
+            <a
+              href="#"
+              class="shrink-0 rounded-lg text-xs font-bold text-primary focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+            >
+              Lihat semua
+            </a>
+          </div>
+
+          <div class="mt-3 flex flex-col gap-2.5">
+            <!-- Basis Data -->
+            <a
+              href="#"
+              class="flex gap-3 rounded-lg bg-card p-3 shadow-sm ring-1 ring-border transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <div class="min-w-0 flex-1">
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="truncate text-sm font-bold">Basis Data</h3>
+                  <span
+                    class="inline-flex h-6 shrink-0 items-center rounded-full bg-emerald-100 px-2.5 text-[10px] font-bold text-emerald-700"
+                  >
+                    Hari ini
+                  </span>
+                </div>
+
+                <p class="mt-1 truncate text-xs text-muted-foreground">
+                  Kelas 3A, 32 mahasiswa
+                </p>
+
+                <div
+                  class="mt-2 flex items-center gap-3 text-[11px] font-semibold text-foreground/70"
+                >
+                  <span class="flex items-center gap-1">
+                    <re-icon
+                      icon="location"
+                      size="12"
+                      class="stroke-2"
+                    ></re-icon>
+                    Ruang 3.12
+                  </span>
+
+                  <span
+                    class="flex items-center gap-1 tabular-nums text-foreground/70"
+                  >
+                    <re-icon icon="clock" size="12" class="stroke-2"></re-icon>
+                    08.00 – 10.30
+                  </span>
+                  <span
+                    class="flex items-center gap-1 tabular-nums text-foreground/70"
+                  >
+                    <re-icon
+                      icon="circle-info"
+                      size="12"
+                      class="stroke-2"
+                    ></re-icon>
+                    F2F
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Pemrograman Web -->
+            <a
+              href="#"
+              class="flex gap-3 rounded-lg bg-card p-3 shadow-sm ring-1 ring-border transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <div class="min-w-0 flex-1">
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="truncate text-sm font-bold">Pemrograman Web</h3>
+                  <span
+                    class="inline-flex h-6 shrink-0 items-center rounded-full bg-emerald-100 px-2.5 text-[10px] font-bold text-emerald-700"
+                  >
+                    Hari ini
+                  </span>
+                </div>
+
+                <p class="mt-1 truncate text-xs text-muted-foreground">
+                  Kelas 2B, 28 mahasiswa
+                </p>
+
+                <div
+                  class="mt-2 flex items-center gap-3 text-[11px] font-semibold text-foreground/70"
+                >
+                  <span class="flex items-center gap-1">
+                    <re-icon
+                      icon="location"
+                      size="12"
+                      class="stroke-2"
+                    ></re-icon>
+                    Lab Komputer 2
+                  </span>
+
+                  <span
+                    class="flex items-center gap-1 tabular-nums text-foreground/70"
+                  >
+                    <re-icon icon="clock" size="12" class="stroke-2"></re-icon>
+                    13.00 – 15.30
+                  </span>
+                  <span
+                    class="flex items-center gap-1 tabular-nums text-foreground/70"
+                  >
+                    <re-icon
+                      icon="circle-info"
+                      size="12"
+                      class="stroke-2"
+                    ></re-icon>
+                    F2F
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Algoritma & Struktur Data -->
+            <a
+              href="#"
+              class="flex gap-3 rounded-lg bg-card p-3 shadow-sm ring-1 ring-border transition-all hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <div class="min-w-0 flex-1">
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="truncate text-sm font-bold">
+                    Algoritma &amp; Struktur Data
+                  </h3>
+                  <span
+                      class="inline-flex h-6 shrink-0 items-center rounded-full bg-emerald-100 px-2.5 text-[10px] font-bold text-emerald-700"
+                    >
+                      Hari ini
+                    </span>
+                </div>
+
+                <p class="mt-1 truncate text-xs text-muted-foreground">
+                  Kelas 1C, 30 mahasiswa
+                </p>
+
+                <div
+                  class="mt-2 flex items-center gap-3 text-[11px] font-semibold text-foreground/70"
+                >
+                  <span class="flex items-center gap-1">
+                    <re-icon
+                      icon="location"
+                      size="12"
+                      class="stroke-2"
+                    ></re-icon>
+                    Ruang 2.04
+                  </span>
+
+                  <span
+                    class="flex items-center gap-1 tabular-nums text-foreground/70"
+                  >
+                    <re-icon icon="clock" size="12" class="stroke-2"></re-icon>
+                    09.00 – 11.30
+                  </span>
+                  <span
+                    class="flex items-center gap-1 tabular-nums text-foreground/70"
+                  >
+                    <re-icon
+                      icon="circle-info"
+                      size="12"
+                      class="stroke-2"
+                    ></re-icon>
+                    F2F
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <section aria-labelledby="courses-heading">
+          <h2 id="courses-heading" class="text-base font-bold tracking-tight">
+            Mata kuliah yang kamu ampu
+          </h2>
+
+          <div class="mt-3 grid grid-cols-2 gap-3">
+            <!-- Algoritma -->
+            <a
+              href="#"
+              class="group relative isolate flex flex-col gap-3 overflow-hidden rounded-lg bg-card p-4 shadow-sm ring-1 ring-border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <img
+                src="/public/brand/folder.png"
+                alt=""
+                aria-hidden="true"
+                class="pointer-events-none absolute -bottom-6 -right-8 z-[-1] h-32 w-32 object-contain opacity-25 transition-all duration-300 group-hover:-translate-y-2 group-hover:opacity-30 group-hover:-scale-x-100 -scale-x-100 rotate-12"
+              />
+
+              <span class="relative z-10 flex flex-col gap-3">
+                <span
+                  class="inline-flex w-fit rounded-md bg-zinc-100 px-2 py-1 text-[10px] font-semibold tracking-wide text-zinc-600"
+                >
+                  IF206
+                </span>
+
+                <span class="min-w-0">
+                  <span class="block text-sm font-bold">Algoritma</span>
+                  <span
+                    class="mt-1 block text-xs leading-5 text-muted-foreground"
+                  >
+                    Struktur data dan kompleksitas.
+                  </span>
+                </span>
+              </span>
+            </a>
+
+            <!-- Jaringan Komputer -->
+            <a
+              href="#"
+              class="group relative isolate flex flex-col gap-3 overflow-hidden rounded-lg bg-card p-4 shadow-sm ring-1 ring-border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <img
+                src="/public/brand/folder.png"
+                alt=""
+                aria-hidden="true"
+                class="pointer-events-none absolute -bottom-6 -right-8 z-[-1] h-32 w-32 object-contain opacity-25 transition-all duration-300 group-hover:-translate-y-2 group-hover:opacity-30 group-hover:-scale-x-100 -scale-x-100 rotate-12"
+              />
+
+              <span class="relative z-10 flex flex-col gap-3">
+                <span
+                  class="inline-flex w-fit rounded-md bg-zinc-100 px-2 py-1 text-[10px] font-semibold tracking-wide text-zinc-600"
+                >
+                  IF207
+                </span>
+
+                <span class="min-w-0">
+                  <span class="block text-sm font-bold">Jaringan Komputer</span>
+                  <span
+                    class="mt-1 block text-xs leading-5 text-muted-foreground"
+                  >
+                    Protokol dan keamanan jaringan.
+                  </span>
+                </span>
+              </span>
+            </a>
+          </div>
+        </section>
+
+        <section aria-labelledby="materials-heading">
+          <div class="flex items-center justify-between gap-3">
+            <h2
+              id="materials-heading"
+              class="text-base font-bold tracking-tight"
+            >
+              Materi dibagikan
+            </h2>
+            <button
+              type="button"
+              class="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 text-xs font-bold text-primary-foreground shadow-sm active:translate-y-px focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <re-icon icon="plus" size="14" class="stroke-2"></re-icon>
+              Tambah materi
+            </button>
+          </div>
+
+          <div
+            class="py-2 mt-3 -mx-1 flex gap-3 overflow-x-auto px-1 pb-3 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            <!-- PDF -->
+            <a
+              href="#"
+              class="group flex w-64 shrink-0 snap-start items-center gap-3 rounded-lg bg-card p-3 shadow-sm ring-1 ring-border transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <img
+                src="/public/brand/pdf.png"
+                alt="PDF"
+                class="size-11 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
+              />
+
+              <div class="min-w-0 flex-1">
+                <h3 class="line-clamp-2 text-xs leading-4 font-bold">
+                  Modul 4: Normalisasi
+                </h3>
+                <p class="mt-1 truncate text-[11px] text-muted-foreground">
+                  Basis Data
+                </p>
+              </div>
+
+              <div
+                class="flex shrink-0 flex-col items-end justify-center gap-1 border-l border-border pl-3"
+              >
+                <span
+                  class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400"
+                >
+                  Hari ini
+                </span>
+                <span
+                  class="text-[11px] font-bold tabular-nums text-foreground"
+                >
+                  08.30
+                </span>
+              </div>
+            </a>
+
+            <!-- PPT -->
+            <a
+              href="#"
+              class="group flex w-64 shrink-0 snap-start items-center gap-3 rounded-lg bg-card p-3 shadow-sm ring-1 ring-border transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <img
+                src="/public/brand/ppt.png"
+                alt="PPT"
+                class="size-11 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
+              />
+
+              <div class="min-w-0 flex-1">
+                <h3 class="line-clamp-2 text-xs leading-4 font-bold">
+                  Panduan React Hooks
+                </h3>
+                <p class="mt-1 truncate text-[11px] text-muted-foreground">
+                  Pemrograman Web
+                </p>
+              </div>
+
+              <div
+                class="flex shrink-0 flex-col items-end justify-center gap-1 border-l border-border pl-3"
+              >
+                <span
+                  class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400"
+                >
+                  Hari ini
+                </span>
+                <span
+                  class="text-[11px] font-bold tabular-nums text-foreground"
+                >
+                  10.15
+                </span>
+              </div>
+            </a>
+
+            <!-- DOC -->
+            <a
+              href="#"
+              class="group flex w-64 shrink-0 snap-start items-center gap-3 rounded-lg bg-card p-3 shadow-sm ring-1 ring-border transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <img
+                src="/public/brand/doc.png"
+                alt="DOC"
+                class="size-11 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
+              />
+
+              <div class="min-w-0 flex-1">
+                <h3 class="line-clamp-2 text-xs leading-4 font-bold">
+                  Tugas 3: Algoritma Sorting
+                </h3>
+                <p class="mt-1 truncate text-[11px] text-muted-foreground">
+                  Algoritma
+                </p>
+              </div>
+
+              <div
+                class="flex shrink-0 flex-col items-end justify-center gap-1 border-l border-border pl-3"
+              >
+                <span
+                  class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400"
+                >
+                  Hari ini
+                </span>
+                <span
+                  class="text-[11px] font-bold tabular-nums text-foreground"
+                >
+                  13.00
+                </span>
+              </div>
+            </a>
+
+            <!-- MP4 -->
+            <a
+              href="#"
+              class="group flex w-64 shrink-0 snap-start items-center gap-3 rounded-lg bg-card p-3 shadow-sm ring-1 ring-border transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
+            >
+              <img
+                src="/public/brand/mp4.png"
+                alt="MP4"
+                class="size-11 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
+              />
+
+              <div class="min-w-0 flex-1">
+                <h3 class="line-clamp-2 text-xs leading-4 font-bold">
+                  Rekaman Kuliah 7
+                </h3>
+                <p class="mt-1 truncate text-[11px] text-muted-foreground">
+                  Jaringan Komputer
+                </p>
+              </div>
+
+              <div
+                class="flex shrink-0 flex-col items-end justify-center gap-1 border-l border-border pl-3"
+              >
+                <span
+                  class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400"
+                >
+                  Hari ini
+                </span>
+                <span
+                  class="text-[11px] font-bold tabular-nums text-foreground"
+                >
+                  15.30
+                </span>
+              </div>
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

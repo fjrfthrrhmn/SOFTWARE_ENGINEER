@@ -56,27 +56,3 @@ export const onboardingSteps: OnboardingStep[] = [
     secondaryCta: "Kembali",
   },
 ]
-
-export const notFound = {
-  title: "StudentConnect | Halaman Tidak Ditemukan",
-  statusCode: "404",
-  eyebrow: "Error 404",
-  imageAlt: "Maskot MOCHI kebingungan saat mencari halaman yang tidak tersedia",
-  heading: "Halaman Tidak Ditemukan",
-  body: "Halaman yang kamu cari tidak tersedia. Periksa kembali alamat tautan.",
-  primaryCta: "Kembali ke Beranda",
-  help: "Masih mengalami kendala? Hubungi admin untuk mendapatkan bantuan",
-}
-
-export const unauthorized = {
-  title: "StudentConnect | Akses Ditolak",
-  statusCode: "403",
-  eyebrow: "Error 403",
-  imageAlt:
-    "Maskot MOCHI memberikan informasi bahwa akun pengguna belum memiliki izin akses",
-  heading: "Akses Tidak Tersedia",
-  body: "Akun yang sedang digunakan belum memiliki izin untuk membuka halaman ini. Silakan masuk menggunakan akun dengan hak akses yang sesuai",
-  primaryCta: "Masuk dengan Akun Lain",
-  secondaryCta: "Kembali ke Beranda",
-  help: "Memerlukan izin akses? Hubungi admin untuk mendapatkan informasi lebih lanjut",
-}
