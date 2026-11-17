@@ -23,5 +23,6 @@ export default async function DashboardPage() {
   if (!user) redirect("/login");
   if (user.role === "admin") return <AdminDashboard user={user} />;
   if (user.role === "dosen") return <LecturerDashboard user={user} />;
-  return <StudentDashboard user={user} />;
+  if (user.role === "mahasiswa") return <StudentDashboard user={user} />;
+  return null;
 }

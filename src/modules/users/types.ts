@@ -25,3 +25,18 @@ export type UserWithProfile =
     })
   | (PublicUser & { role: "dosen"; profile: Lecturer | null; studyProgram: null })
   | (PublicUser & { role: "admin"; profile: Admin | null; studyProgram: null })
+
+export type UserListItem = Pick<
+  User,
+  "id" | "email" | "role" | "status"
+> & {
+  nama: string
+  identitas: string
+  keterangan: string
+}
+
+export type UserFilters = {
+  q: string
+  role: UserRole | "all"
+  status: UserStatus | "all"
+}

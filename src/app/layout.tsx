@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Outfit, Plus_Jakarta_Sans, Roboto } from "next/font/google";
 import "./globals.css";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/shared/components/theme-provider";
 
@@ -45,9 +46,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full">
         <ThemeProvider>
-          <div className="mx-auto flex min-h-dvh w-full max-w-160 flex-col">
-            {children}
-          </div>
+          <NuqsAdapter>
+            <div className="mx-auto flex min-h-dvh w-full max-w-160 flex-col">
+              {children}
+            </div>
+          </NuqsAdapter>
         </ThemeProvider>
       </body>
     </html>

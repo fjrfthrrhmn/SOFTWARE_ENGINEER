@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#1c9cf0" />
+    <title>StudentConnect | Kelola Pengguna</title>
+    <link rel="icon" href="../public/brand/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3/dist/index.global.js"></script>
+    <script src="https://unpkg.com/reicon/cdn/reicon.js"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+        --radius: 0.95rem;
+        --radius-sm: calc(var(--radius) * 0.6);
+        --radius-md: calc(var(--radius) * 0.8);
+        --radius-lg: var(--radius);
+        --radius-xl: calc(var(--radius) * 1.4);
+        --radius-2xl: calc(var(--radius) * 1.8);
+        --radius-3xl: calc(var(--radius) * 2.2);
+        --radius-4xl: calc(var(--radius) * 2.6);
+        --color-background: oklch(1 0 0);
+        --color-foreground: oklch(0.141 0.005 285.823);
+        --color-card: oklch(1 0 0);
+        --color-card-foreground: oklch(0.141 0.005 285.823);
+        --color-primary: #1c9cf0;
+        --color-primary-foreground: oklch(0.97 0.014 254.604);
+        --color-secondary: oklch(0.967 0.001 286.375);
+        --color-secondary-foreground: oklch(0.21 0.006 285.885);
+        --color-muted: oklch(0.967 0.001 286.375);
+        --color-muted-foreground: oklch(0.552 0.016 285.938);
+        --color-accent: oklch(0.967 0.001 286.375);
+        --color-accent-foreground: oklch(0.21 0.006 285.885);
+        --color-destructive: oklch(0.577 0.245 27.325);
+        --color-border: oklch(0.92 0.004 286.32);
+        --color-input: oklch(0.92 0.004 286.32);
+        --color-ring: oklch(0.705 0.015 286.067);
+        --color-positive: oklch(0.48 0.11 155);
+        --color-positive-soft: oklch(0.95 0.04 155);
+        --color-caution: oklch(0.5 0.11 75);
+        --color-caution-soft: oklch(0.96 0.05 75);
+      }
+    </style>
+    <style>
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #a1a1aa;
+        border-radius: 999px;
+      }
+
+      ::-webkit-scrollbar-button {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
+      ::-webkit-scrollbar-corner {
+        background: transparent;
+      }
+
+      @view-transition {
+        navigation: auto;
+      }
+
+      html {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .paper-grid {
+        background-image:
+          linear-gradient(
+            to right,
+            color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px,
+            transparent 1px
+          );
+        background-size: 26px 26px;
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          #000 0%,
+          transparent 80%
+        );
+        mask-image: linear-gradient(to bottom, #000 0%, transparent 80%);
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .enter {
+          animation: rise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-dvh bg-background text-foreground antialiased">
+    <div
+      class="relative mx-auto flex min-h-dvh w-full max-w-[640px] flex-col bg-background sm:border-x sm:border-border"
+    >
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+        <div class="paper-grid absolute inset-0 opacity-50"></div>
+      </div>
+
+      <header
+        class="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border/70 bg-background/60 px-5 py-3 pt-[calc(0.75rem_+_env(safe-area-inset-top))] backdrop-blur-md sm:px-6"
+      >
+        <a
+          href="#"
+          aria-label="StudentConnect"
+          class="flex items-center gap-2 rounded-lg focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+        >
+          <img
+            src="../public/brand/icon.png"
+            alt=""
+            class="size-9 rounded-lg ring-1 ring-border"
+          />
+          <span class="text-sm font-extrabold tracking-tight">
+            StudentConnect
+          </span>
+        </a>
+
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Notifikasi"
+            class="relative flex size-10 items-center justify-center rounded-full bg-card text-foreground shadow-sm ring-1 ring-border active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+          >
+            <re-icon icon="bell" size="18" class="stroke-2"></re-icon>
+            <span
+              class="absolute top-2.5 right-2.5 size-2 rounded-full bg-destructive ring-2 ring-card"
+            ></span>
+          </button>
+          <button
+            type="button"
+            aria-label="Buka profil Admin"
+            class="flex size-10 items-center justify-center rounded-full bg-primary text-xs font-extrabold text-primary-foreground shadow-sm ring-2 ring-card active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+          >
+            AD
+          </button>
+        </div>
+      </header>
+
+      <main
+        class="relative flex flex-1 flex-col gap-7 px-5 pt-6 pb-[calc(2rem_+_env(safe-area-inset-bottom))] sm:px-6"
+      >
+        <section class="enter flex items-start justify-between gap-3">
+          <div class="min-w-0 space-y-4">
+            <div>
+              <h1
+                class="mt-2 text-[22px] leading-tight font-extrabold tracking-tight text-balance sm:text-2xl"
+              >
+                Kelola Pengguna
+              </h1>
+              <p class="max-w-[38ch] text-sm leading-6 text-muted-foreground">
+                Periksa dan perbarui akun mahasiswa, dosen, dan admin.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              id="add-user"
+              class="inline-flex h-10 w-full shrink-0 items-center justify-center gap-2 rounded-2xl bg-linear-to-b from-primary to-sky-700 px-4 text-sm font-bold text-primary-foreground shadow-sm transition hover:brightness-105 active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none sm:w-auto"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                class="size-4"
+                aria-hidden="true"
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+              Tambah Pengguna
+            </button>
+          </div>
+        </section>
+
+        <span class="border-border border h-px"></span>
+
+        <section aria-labelledby="data-heading">
+          <div class="flex items-center justify-between gap-3">
+            <h2 id="data-heading" class="text-base font-bold tracking-tight">
+              Data pengguna
+            </h2>
+            <div class="flex items-center gap-2">
+              <span
+                id="heading-count"
+                class="mt-1 shrink-0 rounded-full bg-muted px-3 py-1.5 text-xs font-bold text-muted-foreground tabular-nums"
+              >120 Akun</span>
+              <span
+                class="mt-1 shrink-0 rounded-full bg-emerald-500/15 text-emerald-500 px-3 py-1.5 text-xs font-bold tabular-nums inline"
+              >
+                <span class="size-1.5 rounded-full bg-current"></span>
+                9 Akun Aktif
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-3 flex flex-row gap-3">
+            <div class="relative flex-1">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                aria-hidden="true"
+                class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="m16 16 4 4" />
+              </svg>
+              <input
+                id="search"
+                type="search"
+                autocomplete="off"
+                aria-label="Cari nama, NIM, kode dosen, atau email"
+                placeholder="Cari nama, NIM, kode, atau email"
+                class="h-10 w-full rounded-2xl border border-transparent bg-input/50 pr-3 pl-9 text-sm font-medium outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30"
+              />
+            </div>
+
+            <!-- Button untuk open drawer, Drawer mengatur Sort, Filter = Status, Role, Prodi if mahasiswa -->
+            <button>
+              Icon
+            </button>
+
+          </div>
+
+          <div class="mt-3 -mx-4 overflow-x-auto px-4 pb-2">
+            <table
+              class="w-full min-w-[560px] border-separate border-spacing-0 text-left"
+            >
+              <caption class="sr-only">
+                Daftar akun pengguna StudentConnect
+              </caption>
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    class="border-b border-border px-2 py-2.5 text-[11px] font-bold text-muted-foreground"
+                  >
+                    Pengguna
+                  </th>
+                  <th
+                    scope="col"
+                    class="border-b border-border px-2 py-2.5 text-[11px] font-bold text-muted-foreground"
+                  >
+                    Peran
+                  </th>
+                  <th
+                    scope="col"
+                    class="border-b border-border px-2 py-2.5 text-[11px] font-bold text-muted-foreground"
+                  >
+                    Status
+                  </th>
+                  <th
+                    scope="col"
+                    class="border-b border-border px-2 py-2.5 text-right text-[11px] font-bold text-muted-foreground"
+                  >
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="user-rows"></tbody>
+            </table>
+          </div>
+
+          <div class="mt-2 flex items-center justify-between gap-3">
+            <p
+              id="pagination-summary"
+              class="text-[11px] font-semibold text-muted-foreground tabular-nums"
+            ></p>
+            <div class="flex items-center gap-1.5">
+              <button
+                type="button"
+                id="prev-page"
+                aria-label="Halaman sebelumnya"
+                class="inline-flex size-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition hover:bg-muted active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-40"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="size-4"
+                  aria-hidden="true"
+                >
+                  <path d="m14 6-6 6 6 6" />
+                </svg>
+              </button>
+              <span
+                id="page-indicator"
+                class="min-w-10 text-center text-[11px] font-bold text-foreground tabular-nums"
+              ></span>
+              <button
+                type="button"
+                id="next-page"
+                aria-label="Halaman berikutnya"
+                class="inline-flex size-9 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition hover:bg-muted active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-40"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="size-4"
+                  aria-hidden="true"
+                >
+                  <path d="m10 6 6 6-6 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const copy = {
+        roles: [
+          { value: "all", label: "Semua" },
+          { value: "mahasiswa", label: "Mahasiswa" },
+          { value: "dosen", label: "Dosen" },
+          { value: "admin", label: "Admin" },
+        ],
+        statuses: [
+          { value: "all", label: "Semua status" },
+          { value: "aktif", label: "Aktif" },
+          { value: "nonaktif", label: "Non-aktif" },
+        ],
+        emptyTitle: "Data pengguna tidak ditemukan.",
+        emptyBody: "Ubah kata kunci atau filter untuk melihat hasil lain.",
+        notFoundImage: "../public/brand/data-not-found.png",
+      };
+
+      const users = [
+        {
+          nama: "Nadia Putri Ramadhani",
+          identitas: "2022310041",
+          email: "nadia.ramadhani@student.ac.id",
+          peran: "mahasiswa",
+          status: "aktif",
+          keterangan: "Teknik Informatika · 2022",
+        },
+        {
+          nama: "Dr. Rina Kartika",
+          identitas: "DSN-0187",
+          email: "rina.kartika@ac.id",
+          peran: "dosen",
+          status: "aktif",
+          keterangan: "Program Studi Teknik Informatika",
+        },
+        {
+          nama: "Rizky Ananda Pratama",
+          identitas: "2023310118",
+          email: "rizky.pratama@student.ac.id",
+          peran: "mahasiswa",
+          status: "aktif",
+          keterangan: "Sistem Informasi · 2023",
+        },
+        {
+          nama: "Siti Aisyah Hidayah",
+          identitas: "2021300087",
+          email: "siti.hidayah@student.ac.id",
+          peran: "mahasiswa",
+          status: "nonaktif",
+          keterangan: "Teknik Informatika · 2021",
+        },
+        {
+          nama: "Prof. Bambang Suryono",
+          identitas: "DSN-0042",
+          email: "bambang.suryono@ac.id",
+          peran: "dosen",
+          status: "aktif",
+          keterangan: "Program Studi Sistem Informasi",
+        },
+        {
+          nama: "Admin Akademik",
+          identitas: "ADM-0001",
+          email: "admin.akademik@ac.id",
+          peran: "admin",
+          status: "aktif",
+          keterangan: "Bagian Akademik",
+        },
+        {
+          nama: "Fajar Nugroho",
+          identitas: "2022310196",
+          email: "fajar.nugroho@student.ac.id",
+          peran: "mahasiswa",
+          status: "aktif",
+          keterangan: "Sistem Informasi · 2022",
+        },
+        {
+          nama: "Dewi Lestari",
+          identitas: "DSN-0231",
+          email: "dewi.lestari@ac.id",
+          peran: "dosen",
+          status: "nonaktif",
+          keterangan: "Program Studi Teknik Informatika",
+        },
+        {
+          nama: "Alya Zahra Nabila",
+          identitas: "2024310009",
+          email: "alya.nabila@student.ac.id",
+          peran: "mahasiswa",
+          status: "aktif",
+          keterangan: "Teknik Informatika · 2024",
+        },
+        {
+          nama: "Admin Kemahasiswaan",
+          identitas: "ADM-0004",
+          email: "admin.kemahasiswaan@ac.id",
+          peran: "admin",
+          status: "aktif",
+          keterangan: "Bagian Kemahasiswaan",
+        },
+        {
+          nama: "Andi Prasetyo",
+          identitas: "2022310274",
+          email: "andi.prasetyo@student.ac.id",
+          peran: "mahasiswa",
+          status: "nonaktif",
+          keterangan: "Sistem Informasi · 2022",
+        },
+        {
+          nama: "Dr. Maya Silalahi",
+          identitas: "DSN-0119",
+          email: "maya.silalahi@ac.id",
+          peran: "dosen",
+          status: "aktif",
+          keterangan: "Program Studi Sistem Informasi",
+        },
+      ];
+
+      const roleStyles = {
+        mahasiswa: "bg-muted text-muted-foreground",
+        dosen: "bg-caution-soft text-caution",
+        admin: "bg-secondary text-secondary-foreground",
+      };
+
+      const statusStyles = {
+        aktif: "bg-positive-soft text-positive",
+        nonaktif: "bg-muted text-muted-foreground",
+      };
+
+      const state = {
+        keyword: "",
+        role: "all",
+        status: "all",
+        page: 1,
+        perPage: 5,
+      };
+
+      const numberFormat = new Intl.NumberFormat("id-ID");
+      const roleTabs = document.getElementById("role-tabs");
+      const statusFilter = document.getElementById("status-filter");
+      const searchInput = document.getElementById("search");
+      const resetFilter = document.getElementById("reset-filter");
+      const rows = document.getElementById("user-rows");
+      const resultCount = document.getElementById("result-count");
+      const paginationSummary = document.getElementById("pagination-summary");
+      const pageIndicator = document.getElementById("page-indicator");
+      const prevPage = document.getElementById("prev-page");
+      const nextPage = document.getElementById("next-page");
+
+      function initials(nama) {
+        return nama
+          .split(" ")
+          .slice(0, 2)
+          .map((bagian) => bagian[0])
+          .join("")
+          .toUpperCase();
+      }
+
+      function labelFor(items, value) {
+        return items.find((item) => item.value === value)?.label ?? value;
+      }
+
+      function filteredUsers() {
+        const keyword = state.keyword.trim().toLowerCase();
+
+        return users.filter((user) => {
+          const cocokKeyword =
+            !keyword ||
+            [user.nama, user.identitas, user.email, user.keterangan].some(
+              (field) => field.toLowerCase().includes(keyword),
+            );
+          const cocokPeran = state.role === "all" || user.peran === state.role;
+          const cocokStatus =
+            state.status === "all" || user.status === state.status;
+
+          return cocokKeyword && cocokPeran && cocokStatus;
+        });
+      }
+
+      function renderRow(user) {
+        const peran = labelFor(copy.roles, user.peran);
+        const status = labelFor(copy.statuses, user.status);
+
+        return `
+          <tr class="group">
+            <td class="border-b border-border/70 px-2 py-3 align-middle">
+              <div class="flex items-center gap-3">
+                <span class="grid size-9 shrink-0 place-items-center rounded-full bg-muted text-[11px] font-extrabold text-muted-foreground">
+                  ${initials(user.nama)}
+                </span>
+                <span class="min-w-0">
+                  <span class="block truncate text-sm font-bold">${user.nama}</span>
+                  <span class="mt-0.5 block truncate text-xs text-muted-foreground tabular-nums">
+                    ${user.identitas} · ${user.email}
+                  </span>
+                </span>
+              </div>
+            </td>
+            <td class="border-b border-border/70 px-2 py-3 align-middle">
+              <span class="inline-flex h-6 items-center rounded-full px-2.5 text-[10px] font-bold ${roleStyles[user.peran]}">
+                ${peran}
+              </span>
+            </td>
+            <td class="border-b border-border/70 px-2 py-3 align-middle">
+              <span class="inline-flex h-6 items-center gap-1.5 rounded-full px-2.5 text-[10px] font-bold ${statusStyles[user.status]}">
+                <span class="size-1.5 rounded-full bg-current"></span>
+                ${status}
+              </span>
+            </td>
+            <td class="border-b border-border/70 px-2 py-3 text-right align-middle">
+              <a
+                href="#"
+                aria-label="Ubah data ${user.nama}"
+                class="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-bold text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none"
+              >
+                Ubah
+                <re-icon
+                  icon="arrow-right-up"
+                  size="14"
+                  class="stroke-2"
+                ></re-icon>
+              </a>
+            </td>
+          </tr>
+        `;
+      }
+
+      function renderEmpty() {
+        return `
+          <tr>
+            <td colspan="4" class="px-2 py-10 text-center">
+              <img
+                src="${copy.notFoundImage}"
+                alt=""
+                class="mx-auto size-16 object-contain opacity-80"
+              />
+              <p class="mt-3 text-sm font-bold">${copy.emptyTitle}</p>
+              <p class="mt-1 text-xs text-muted-foreground">${copy.emptyBody}</p>
+            </td>
+          </tr>
+        `;
+      }
+
+      function renderFilters() {
+        roleTabs.innerHTML = copy.roles
+          .map(
+            (item) => `
+              <button
+                type="button"
+                role="tab"
+                aria-selected="${state.role === item.value}"
+                data-role="${item.value}"
+                class="h-9 rounded-md px-2 text-xs font-bold text-muted-foreground transition-colors active:translate-y-px focus-visible:ring-4 focus-visible:ring-ring/40 focus-visible:outline-none aria-selected:bg-card aria-selected:text-foreground aria-selected:shadow-sm aria-selected:ring-1 aria-selected:ring-border"
+              >
+                ${item.label}
+              </button>
+            `,
+          )
+          .join("");
+
+        statusFilter.innerHTML = copy.statuses
+          .map((item) => `<option value="${item.value}">${item.label}</option>`)
+          .join("");
+        statusFilter.value = state.status;
+      }
+
+      function renderSummary() {
+        const total = users.length;
+        const aktif = users.filter((user) => user.status === "aktif").length;
+
+        document.getElementById("heading-count").textContent =
+          `${numberFormat.format(total)} akun`;
+        document.getElementById("featured-summary").textContent =
+          `${numberFormat.format(total)} akun terdaftar · ${numberFormat.format(aktif)} akun aktif`;
+      }
+
+      function render() {
+        const hasil = filteredUsers();
+        const totalHalaman = Math.max(
+          1,
+          Math.ceil(hasil.length / state.perPage),
+        );
+
+        if (state.page > totalHalaman) state.page = totalHalaman;
+
+        const awal = (state.page - 1) * state.perPage;
+        const akhir = Math.min(awal + state.perPage, hasil.length);
+        const tampil = hasil.slice(awal, akhir);
+
+        rows.innerHTML = tampil.length
+          ? tampil.map(renderRow).join("")
+          : renderEmpty();
+
+        resultCount.textContent = `${numberFormat.format(hasil.length)} pengguna`;
+        paginationSummary.textContent = hasil.length
+          ? `Menampilkan ${awal + 1}–${akhir} dari ${numberFormat.format(hasil.length)}`
+          : `Menampilkan 0 dari ${numberFormat.format(hasil.length)}`;
+        pageIndicator.textContent = `${state.page} / ${totalHalaman}`;
+        prevPage.disabled = state.page === 1;
+        nextPage.disabled = state.page === totalHalaman;
+      }
+
+      roleTabs.addEventListener("click", (event) => {
+        const tab = event.target.closest("[data-role]");
+        if (!tab) return;
+
+        state.role = tab.dataset.role;
+        state.page = 1;
+        renderFilters();
+        render();
+      });
+
+      searchInput.addEventListener("input", (event) => {
+        state.keyword = event.target.value;
+        state.page = 1;
+        render();
+      });
+
+      statusFilter.addEventListener("change", (event) => {
+        state.status = event.target.value;
+        state.page = 1;
+        render();
+      });
+
+      resetFilter.addEventListener("click", () => {
+        state.keyword = "";
+        state.role = "all";
+        state.status = "all";
+        state.page = 1;
+        searchInput.value = "";
+        renderFilters();
+        render();
+      });
+
+      prevPage.addEventListener("click", () => {
+        if (state.page > 1) {
+          state.page -= 1;
+          render();
+        }
+      });
+
+      nextPage.addEventListener("click", () => {
+        state.page += 1;
+        render();
+      });
+
+      renderSummary();
+      renderFilters();
+      render();
+    </script>
+  </body>
+</html>
