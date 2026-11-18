@@ -1,5 +1,8 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import type { UserListItem } from "@/modules/users/types";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
+import { UserActions } from "@/modules/users/components/user-actions";
+import type { StudyProgramOption, UserListItem } from "@/modules/users/types";
 import { Badge } from "@/shared/components/ui/badge";
 import { userTableFeatures } from "./data-table-features";
 
@@ -25,51 +28,62 @@ function getInitials(name: string) {
   return initials || "?";
 }
 
-export const userColumns = columnHelper.columns([
-  columnHelper.display({
-    id: "index",
-    header: "No.",
-    cell: ({ row }) => {
-      return (
+export function createUserColumns(studyPrograms: StudyProgramOption[]) {
+  return columnHelper.columns([
+    columnHelper.display({
+      id: "index",
+      header: "No.",
+      cell: ({ row }) => (
         <div className="font-mono px-2">
           <span>{row.index + 1}</span>
         </div>
-      );
-    },
-  }),
-  columnHelper.accessor("nama", {
-    header: "Pengguna",
-    cell: ({ getValue, row }) => (
-      <div className="flex min-w-0 items-center gap-3">
-        <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-          {getInitials(getValue())}
-        </span>
-        <div className="min-w-0">
-          <p className="truncate font-medium text-foreground">{getValue()}</p>
-          <p className="truncate text-xs text-muted-foreground">
-            {row.original.identitas} · {row.original.email}
-          </p>
+      ),
+    }),
+    columnHelper.accessor("nama", {
+      header: "Pengguna",
+      cell: ({ getValue, row }) => (
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+            {getInitials(getValue())}
+          </span>
+          <div className="min-w-0">
+            <p className="truncate font-medium text-foreground">{getValue()}</p>
+            <p className="truncate text-xs text-muted-foreground">
+              {row.original.identitas} · {row.original.email}
+            </p>
+          </div>
         </div>
-      </div>
-    ),
-  }),
-  columnHelper.accessor("role", {
-    header: "Peran",
-    cell: ({ getValue }) => (
-      <Badge variant="secondary" className="rounded-full">
-        {roleLabels[getValue()]}
-      </Badge>
-    ),
-  }),
-  columnHelper.accessor("status", {
-    header: "Status",
-    cell: ({ getValue }) => (
-      <Badge
-        variant={getValue() === "aktif" ? "default" : "outline"}
-        className="rounded-full capitalize"
-      >
-        {getValue()}
-      </Badge>
-    ),
-  }),
-]);
+      ),
+    }),
+    columnHelper.accessor("role", {
+      header: "Peran",
+      cell: ({ getValue }) => (
+        <Badge variant="secondary" className="rounded-full">
+          {roleLabels[getValue()]}
+        </Badge>
+      ),
+    }),
+    columnHelper.accessor("status", {
+      header: "Status",
+      cell: ({ getValue }) => (
+        <Badge
+          variant={getValue() === "aktif" ? "default" : "outline"}
+          className="rounded-full capitalize"
+        >
+          {getValue()}
+        </Badge>
+      ),
+    }),
+    columnHelper.accessor("createdAt", {
+      header: "Dibuat",
+      cell: ({ getValue }) => format(getValue(), "dd MMM yyyy", { locale: id }),
+    }),
+    columnHelper.display({
+      id: "actions",
+      header: "Aksi",
+      cell: ({ row }) => (
+        <UserActions user={row.original} studyPrograms={studyPrograms} />
+      ),
+    }),
+  ]);
+}

@@ -8,7 +8,7 @@ export function filterUsers(
 ): UserListItem[] {
   const query = filters.q.trim().slice(0, MAX_QUERY_LENGTH).toLocaleLowerCase("id")
 
-  return data.filter((user) => {
+  const result = data.filter((user) => {
     if (filters.role !== "all" && user.role !== filters.role) return false
     if (filters.status !== "all" && user.status !== filters.status) return false
     if (!query) return true
@@ -21,5 +21,13 @@ export function filterUsers(
       user.role,
       user.status,
     ].some((value) => value.toLocaleLowerCase("id").includes(query))
+  })
+
+  return result.sort((a, b) => {
+    const comparison = a.nama.localeCompare(b.nama, "id", {
+      sensitivity: "base",
+    })
+
+    return filters.sort === "name-desc" ? -comparison : comparison
   })
 }

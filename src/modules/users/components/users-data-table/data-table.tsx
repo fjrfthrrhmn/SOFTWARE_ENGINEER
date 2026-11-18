@@ -1,9 +1,10 @@
 "use client"
 
 import Image from "next/image"
+import { useMemo } from "react"
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
 import { useTable } from "@tanstack/react-table"
-import type { UserListItem } from "@/modules/users/types"
+import type { StudyProgramOption, UserListItem } from "@/modules/users/types"
 import { Button } from "@/shared/components/ui/button"
 import {
   Table,
@@ -13,16 +14,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/shared/components/ui/table"
-import { userColumns } from "./columns"
+import { createUserColumns } from "./columns"
 import { userTableFeatures } from "./data-table-features"
 
 const numberFormat = new Intl.NumberFormat("id-ID")
 
-export function UsersDataTable({ data }: { data: UserListItem[] }) {
+export function UsersDataTable({
+  data,
+  studyPrograms,
+}: {
+  data: UserListItem[]
+  studyPrograms: StudyProgramOption[]
+}) {
+  const columns = useMemo(
+    () => createUserColumns(studyPrograms),
+    [studyPrograms],
+  )
   const table = useTable(
     {
       features: userTableFeatures,
-      columns: userColumns,
+      columns,
       data,
       initialState: { pagination: { pageIndex: 0, pageSize: 10 } },
     },
@@ -63,7 +74,7 @@ export function UsersDataTable({ data }: { data: UserListItem[] }) {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={userColumns.length} className="h-64 p-0">
+                <TableCell colSpan={columns.length} className="h-64 p-0">
                   <div className="flex h-full flex-col items-center justify-center gap-3 px-4 text-center">
                     <Image
                       src="/brand/data-not-found.png"
