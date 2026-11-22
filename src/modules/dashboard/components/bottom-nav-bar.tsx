@@ -25,7 +25,7 @@ export type NavItem = {
 export const bottomNavItems: Record<UserRole, NavItem[]> = {
   admin: [
     { label: "Beranda", href: "/dashboard", icon: Home },
-    { label: "Pengguna", href: "/dashboard/pengguna", icon: Users },
+    { label: "Pengguna", href: "/dashboard/users", icon: Users },
     { label: "Jadwal Kuliah", href: "/dashboard/jadwal", icon: CalendarDays },
   ],
   mahasiswa: [

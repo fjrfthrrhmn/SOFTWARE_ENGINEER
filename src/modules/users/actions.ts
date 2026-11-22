@@ -18,7 +18,7 @@ import type {
   UserMutationResult,
 } from "./types"
 
-const USERS_PATH = "/dashboard/pengguna"
+const USERS_PATH = "/dashboard/users"
 
 export async function createUser(input: CreateUserInput): Promise<UserMutationResult> {
   await requireRole(["admin"])

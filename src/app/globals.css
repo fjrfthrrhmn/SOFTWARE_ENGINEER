@@ -217,3 +217,7 @@
 html[data-magicui-theme-vt="active"]::view-transition-group(root) {
   animation-duration: var(--magicui-theme-toggle-vt-duration);
 }
+
+/* ::selection {
+  @apply  
+} */

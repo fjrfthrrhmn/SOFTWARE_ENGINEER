@@ -50,8 +50,8 @@
     - `src/db/seed.ts`
     - `components.json`
 - Current behavior:
-  - `/dashboard/pengguna` sudah berjalan dengan data database, pencarian `q`, filter role/status/reset via nuqs, empty state, dan pagination klien.
-  - `src/app/(root)/(app)/dashboard/pengguna/page.tsx:31`: `Button id="button-create-users"` sudah ada, tetapi pasif dan bukan client component.
+  - `/dashboard/users` sudah berjalan dengan data database, pencarian `q`, filter role/status/reset via nuqs, empty state, dan pagination klien.
+  - `src/app/(root)/(app)/dashboard/users/page.tsx:31`: `Button id="button-create-users"` sudah ada, tetapi pasif dan bukan client component.
   - `columns.tsx` belum memiliki kolom `Aksi`; prototype `screen/ui-dashboard-pengguna.html:562` hanya memuat tautan `Ubah` dan tidak punya tombol nonaktifkan.
   - `src/modules/users/actions.ts`, `service.ts`, dan `schema.ts` belum ada; server action baru ada di modul `auth` dan `onboarding`.
   - Belum ada `dialog.tsx`/`alert-dialog.tsx` di `src/shared/components/ui`; satu-satunya pola overlay adalah `drawer.tsx` (Base UI).
@@ -77,7 +77,7 @@
 
 - **Problem:** Halaman Kelola Pengguna sudah menampilkan dan menyaring data, tetapi `button-create-users` masih pasif, belum ada kolom `Aksi`, serta belum ada server action, validasi, dan penulisan data sehingga FR-17/FR-18/FR-19 belum terpenuhi.
 - **Expected Outcome:**
-  - Admin dapat membuka `/dashboard/pengguna`, melihat data, mencari, memfilter, mereset, dan berpaginasi (sudah ada dari phase 1–4).
+  - Admin dapat membuka `/dashboard/users`, melihat data, mencari, memfilter, mereset, dan berpaginasi (sudah ada dari phase 1–4).
   - Klik `button-create-users` membuka drawer form tambah pengguna (mahasiswa/dosen): email, password, nama, NIM/Kode, role, serta angkatan dan program studi untuk mahasiswa.
   - Baris tabel memiliki kolom `Aksi` berisi tombol `Ubah` dan `Nonaktifkan`.
   - Tombol `Ubah` membuka drawer form ubah berisi data eksisting; email read-only dan `new_password` opsional.
@@ -118,12 +118,12 @@
   - `src/modules/users/service.ts`: aturan unik email/identitas, hash password `bcryptjs` cost 10, larangan menonaktifkan akun sendiri/admin.
   - `src/modules/users/repository.ts`: `listStudyPrograms()`, perluasan `listUsers()` dengan `angkatan`/`idProgramStudi`, `insertUserWithProfile()`, `updateUserWithProfile()`, `setUserStatus()` dalam `db.transaction`.
   - `src/db/index.ts`: driver diubah dari `drizzle-orm/neon-http` ke `drizzle-orm/neon-serverless` dengan `Pool` agar `db.transaction` didukung; paket `@neondatabase/serverless` sudah terpasang.
-  - `src/modules/users/actions.ts`: `createUser`, `updateUser`, `deactivateUser`; `revalidatePath("/dashboard/pengguna")`.
+  - `src/modules/users/actions.ts`: `createUser`, `updateUser`, `deactivateUser`; `revalidatePath("/dashboard/users")`.
   - `src/modules/users/components/`: `user-form-drawer.tsx`, `create-user-drawer.tsx`, `user-actions.tsx`.
   - `src/modules/users/components/users-data-table/users-filter-drawer.tsx` direname menjadi `users-featured-drawer.tsx`, export `UsersFeaturedDrawer`, dan dipanggil dari `users-page.tsx`.
   - `createdAt` dari `pengguna.created_at` ditambahkan ke `UserListItem`, lalu diformat di kolom tabel memakai `date-fns`.
   - `src/shared/components/ui/dialog.tsx`: komponen dialog shadcn base baru dari CLI.
-  - `src/app/(root)/(app)/dashboard/pengguna/page.tsx`: mengganti `Button` statis dengan `<CreateUserDrawer />`, id tombol tetap `button-create-users`.
+  - `src/app/(root)/(app)/dashboard/users/page.tsx`: mengganti `Button` statis dengan `<CreateUserDrawer />`, id tombol tetap `button-create-users`.
 - **Data Flow:**
   - Create: `button-create-users` → `CreateUserDrawer` → `UserFormDrawer` → `createUser(input)` → service + repository → `revalidatePath` → toast sukses → drawer tutup → baris baru tampil.
   - Ubah: tombol `Ubah` di `user-actions.tsx` → `UserFormDrawer` dengan data dari baris `UserListItem` → `updateUser(id, input)` → cek unik identitas (kecuali diri sendiri) → hash `new_password` bila diisi → revalidate → toast.
@@ -153,7 +153,7 @@
 - Drawer filter shadcn base berisi filter role, filter status, dan reset (sudah done di phase 2).
 - Input pencarian teks yang tersinkron dengan `q` di URL (sudah done di phase 2).
 - Empty state dan ringkasan hasil setelah filter (sudah done di phase 2).
-- Route `/dashboard/pengguna` dan loading state (sudah done di phase 3).
+- Route `/dashboard/users` dan loading state (sudah done di phase 3).
 - Skenario E2E untuk melihat, mencari, memfilter, mereset, dan berpaginasi data pengguna (sudah done di phase 4).
 - Zod schema, tipe input/hasil, dan query pendukung form (`listStudyPrograms`, detail user untuk ubah).
 - Server action `createUser`, `updateUser`, `deactivateUser` beserta service dan repository write dengan transaksi.
@@ -262,11 +262,11 @@
 
 ### Phase 3 — Route halaman
 
-**Objective:** Halaman `/dashboard/pengguna` tersedia untuk admin dengan data dari database.
+**Objective:** Halaman `/dashboard/users` tersedia untuk admin dengan data dari database.
 
 **Files:**
-- CREATE: `src/app/(root)/(app)/dashboard/pengguna/page.tsx`
-- CREATE: `src/app/(root)/(app)/dashboard/pengguna/loading.tsx`
+- CREATE: `src/app/(root)/(app)/dashboard/users/page.tsx`
+- CREATE: `src/app/(root)/(app)/dashboard/users/loading.tsx`
 
 **Tasks:**
 - [x] Buat `page.tsx`: `requireRole(["admin"])`, `getUserProfile` untuk header, `listUsers`, lalu render `DashboardShell` dengan heading `Kelola Pengguna` dan `<UsersPage data={users} />`.
@@ -278,7 +278,7 @@
 **Validation:**
 - [x] `npm run lint` lolos.
 - [x] `npm run build` lolos.
-- [x] Admin dapat membuka `/dashboard/pengguna`; mahasiswa/dosen tidak dapat mengakses.
+- [x] Admin dapat membuka `/dashboard/users`; mahasiswa/dosen tidak dapat mengakses.
 - [x] Data yang tampil berasal dari database, bukan array prototype.
 
 **Completion Criteria:** Route admin tersedia dan menampilkan data database lengkap dengan filter URL.
@@ -292,7 +292,7 @@
 - MODIFY: `docs/00-plan/m3-crud-users.md`
 
 **Tasks:**
-- [x] Tambah skenario E2E: login admin dari kredensial environment, buka `/dashboard/pengguna`, verifikasi heading dan tabel, cari pengguna, buka drawer filter, pilih role, pilih status, verifikasi URL, reset filter, verifikasi URL bersih, lalu uji pagination.
+- [x] Tambah skenario E2E: login admin dari kredensial environment, buka `/dashboard/users`, verifikasi heading dan tabel, cari pengguna, buka drawer filter, pilih role, pilih status, verifikasi URL, reset filter, verifikasi URL bersih, lalu uji pagination.
 - [x] Pastikan test tidak menuliskan kredensial atau password plaintext ke repositori.
 - [x] Jalankan `npm run lint`, `npm run build`, dan `npm run test:e2e`.
 - [x] Perbarui status plan, execution log, dan final report sesuai hasil aktual.
@@ -344,7 +344,7 @@
 
 **Tasks:**
 - [x] Tambah helper service: pengecekan unik email (memakai `findAuthUserByEmail`) dan unik identitas/NIM/kode dosen, serta hash password dengan `hash` dari `bcryptjs` cost 10.
-- [x] `createUser(input)`: `requireRole(["admin"])`, `safeParse`, cek unik, hash password, `insertUserWithProfile`, `revalidatePath("/dashboard/pengguna")`, kembalikan `{ ok: true }`.
+- [x] `createUser(input)`: `requireRole(["admin"])`, `safeParse`, cek unik, hash password, `insertUserWithProfile`, `revalidatePath("/dashboard/users")`, kembalikan `{ ok: true }`.
 - [x] `updateUser(id, input)`: `requireRole(["admin"])`, `safeParse`, pastikan user ada, cek unik identitas kecuali id yang sama, hash `new_password` hanya bila diisi, `updateUserWithProfile`, revalidate, kembalikan hasil.
 - [x] `deactivateUser(id)`: `requireRole(["admin"])`, `safeParse`, tolak bila `id === session.userId` atau target berrole admin, `setUserStatus(id, "nonaktif")`, revalidate, kembalikan hasil.
 - [x] Mapping error konsisten: `invalid_input` + `fieldErrors`, `email_taken`, `identity_taken`, `user_not_found`, `cannot_deactivate_self`, dan `server_error`.
@@ -367,7 +367,7 @@
 **Files:**
 - CREATE: `src/modules/users/components/user-form-drawer.tsx`
 - CREATE: `src/modules/users/components/create-user-drawer.tsx`
-- MODIFY: `src/app/(root)/(app)/dashboard/pengguna/page.tsx`
+- MODIFY: `src/app/(root)/(app)/dashboard/users/page.tsx`
 
 **Tasks:**
 - [x] Buat `UserFormDrawer` controlled dengan props `mode`, `user` (`UserListItem | null`), `studyPrograms`, `open`, dan `onOpenChange`.
@@ -507,8 +507,8 @@
 | `src/modules/users/components/users-data-table/users-filter-drawer.tsx` | RENAME | Diganti menjadi `users-featured-drawer.tsx` | 2, 10 |
 | `src/modules/users/components/users-data-table/users-featured-drawer.tsx` | RENAME / MODIFY | Drawer role/status/sort/reset | 2, 10 |
 | `src/modules/users/components/users-page.tsx` | CREATE / MODIFY | Client wrapper, URL state, prodi, badge `Total Data` | 2, 8, 10 |
-| `src/app/(root)/(app)/dashboard/pengguna/page.tsx` | CREATE / MODIFY | Route admin, fetch prodi, trigger create | 3, 7 |
-| `src/app/(root)/(app)/dashboard/pengguna/loading.tsx` | CREATE | Loading skeleton halaman | 3 |
+| `src/app/(root)/(app)/dashboard/users/page.tsx` | CREATE / MODIFY | Route admin, fetch prodi, trigger create | 3, 7 |
+| `src/app/(root)/(app)/dashboard/users/loading.tsx` | CREATE | Loading skeleton halaman | 3 |
 | `tests/pengguna.e2e.ts` | CREATE / MODIFY | E2E lihat/filter + CRUD + sort/Dibuat/Total Data | 4, 9, 10 |
 | `src/modules/users/schema.ts` | CREATE | Zod schema create/update/deactivate | 5 |
 | `src/modules/users/service.ts` | CREATE | Unik, hash password, guard admin/self | 6 |
@@ -538,7 +538,7 @@
 | Update mengubah email | Identitas login berubah tak sengaja | Email read-only di form dan tidak termasuk `updateUserSchema` |
 | Role diubah mahasiswa ↔ dosen | Profil lama tertinggal | Update profil sesuai role baru di dalam transaksi |
 | Drawer menyimpan data user sebelumnya | Form ubah menimpa user salah | `defaultValues` diisi ulang setiap drawer dibuka; state target di-reset saat tutup |
-| Tabel tidak segar setelah mutasi | Perubahan tidak tampil | `revalidatePath("/dashboard/pengguna")` pada semua action sukses |
+| Tabel tidak segar setelah mutasi | Perubahan tidak tampil | `revalidatePath("/dashboard/users")` pada semua action sukses |
 | Tidak ada komponen `Dialog` | Tombol nonaktifkan belum bisa konfirmasi | Generate via shadcn CLI sesuai `components.json`, tanpa dependency baru |
 | E2E membuat data permanen | Database uji menumpuk | Pakai email/identitas bersuffix timestamp dan bersihkan data uji bila diperlukan |
 | `dfs-date` tidak tersedia di registry publik (404) | Paket yang diminta tidak bisa dipasang | Disetujui fallback ke `date-fns` yang sudah terpasang; tidak ada dependency baru |
@@ -577,7 +577,7 @@
 |---|---|---|---|
 | 1 | COMPLETE | `listUsers()`, `UserListItem`, `UserFilters`, `userFiltersParsers`, `NuqsAdapter` | `npm run build` lolos |
 | 2 | COMPLETE | `@tanstack/react-table@9.3.1`, shadcn `table`/`drawer`, `filterUsers`, kolom, tabel, drawer, client page | `npm run lint` lolos; `npm run build` lolos |
-| 3 | COMPLETE | Route `/dashboard/pengguna` dan skeleton loading | `npm run build` lolos; route terdaftar |
+| 3 | COMPLETE | Route `/dashboard/users` dan skeleton loading | `npm run build` lolos; route terdaftar |
 | 4 | COMPLETE | `tests/pengguna.e2e.ts` dengan 5 skenario | `npm run test:e2e` 11/11 lolos; lint/build lolos |
 | 5 | COMPLETE | `schema.ts`, tipe input/hasil, `listStudyPrograms`, query/write repository, driver `neon-serverless` | `npx tsc --noEmit`, `npm run build` lolos |
 | 6 | COMPLETE | `service.ts`, `actions.ts`, hash bcrypt, guard admin/self, mapping conflict DB | `npm run lint`, `npm run build` lolos; E2E CRUD lolos |
@@ -590,9 +590,9 @@
 
 ## 10. Final Report
 
-- **Summary:** Phase 1–4 menghasilkan halaman admin `/dashboard/pengguna` dengan data database tanpa `passwordHash`, pencarian `q`, filter role/status, reset, empty state, ringkasan hasil, pagination, dan state URL via `nuqs`. Phase 5–9 menambahkan CRUD pengguna (FR-17/FR-18/FR-19): schema/tipe/repository, server action + service + bcrypt, drawer create/ubah dari `#button-create-users`, kolom `Aksi`, dialog konfirmasi nonaktifkan, serta E2E CRUD dan guard. Phase 10 menambahkan sort nama lewat drawer yang direname menjadi `UsersFeaturedDrawer`, kolom `Dibuat` berformat `date-fns`, dan badge `Total Data` dari hasil filter aktif.
-- **Files Changed (phase 1–4):** `docs/00-plan/m3-crud-users.md` (rename), `package.json`, `package-lock.json`, `src/app/layout.tsx`, `src/modules/users/types.ts`, `src/modules/users/repository.ts`, `src/modules/users/search-params.ts`, `src/modules/users/filter-users.ts`, `src/modules/users/components/users-page.tsx`, `src/modules/users/components/users-filter-drawer.tsx`, `src/modules/users/components/users-data-table/data-table-features.ts`, `src/modules/users/components/users-data-table/columns.tsx`, `src/modules/users/components/users-data-table/data-table.tsx`, `src/shared/components/ui/table.tsx`, `src/shared/components/ui/drawer.tsx`, `src/app/(root)/(app)/dashboard/pengguna/page.tsx`, `src/app/(root)/(app)/dashboard/pengguna/loading.tsx`, `tests/pengguna.e2e.ts`.
-- **Files Changed (phase 5–9):** `src/db/index.ts`, `src/modules/users/schema.ts`, `src/modules/users/service.ts`, `src/modules/users/actions.ts`, `src/modules/users/components/user-form-drawer.tsx`, `src/modules/users/components/create-user-drawer.tsx`, `src/modules/users/components/user-actions.tsx`, `src/shared/components/ui/dialog.tsx`; modifikasi `src/modules/users/types.ts`, `src/modules/users/repository.ts`, `src/app/(root)/(app)/dashboard/pengguna/page.tsx`, `src/modules/users/components/users-page.tsx`, `src/modules/users/components/users-data-table/columns.tsx`, `src/modules/users/components/users-data-table/data-table.tsx`, `tests/pengguna.e2e.ts`, `docs/00-plan/m3-crud-users.md`.
+- **Summary:** Phase 1–4 menghasilkan halaman admin `/dashboard/users` dengan data database tanpa `passwordHash`, pencarian `q`, filter role/status, reset, empty state, ringkasan hasil, pagination, dan state URL via `nuqs`. Phase 5–9 menambahkan CRUD pengguna (FR-17/FR-18/FR-19): schema/tipe/repository, server action + service + bcrypt, drawer create/ubah dari `#button-create-users`, kolom `Aksi`, dialog konfirmasi nonaktifkan, serta E2E CRUD dan guard. Phase 10 menambahkan sort nama lewat drawer yang direname menjadi `UsersFeaturedDrawer`, kolom `Dibuat` berformat `date-fns`, dan badge `Total Data` dari hasil filter aktif.
+- **Files Changed (phase 1–4):** `docs/00-plan/m3-crud-users.md` (rename), `package.json`, `package-lock.json`, `src/app/layout.tsx`, `src/modules/users/types.ts`, `src/modules/users/repository.ts`, `src/modules/users/search-params.ts`, `src/modules/users/filter-users.ts`, `src/modules/users/components/users-page.tsx`, `src/modules/users/components/users-filter-drawer.tsx`, `src/modules/users/components/users-data-table/data-table-features.ts`, `src/modules/users/components/users-data-table/columns.tsx`, `src/modules/users/components/users-data-table/data-table.tsx`, `src/shared/components/ui/table.tsx`, `src/shared/components/ui/drawer.tsx`, `src/app/(root)/(app)/dashboard/users/page.tsx`, `src/app/(root)/(app)/dashboard/users/loading.tsx`, `tests/pengguna.e2e.ts`.
+- **Files Changed (phase 5–9):** `src/db/index.ts`, `src/modules/users/schema.ts`, `src/modules/users/service.ts`, `src/modules/users/actions.ts`, `src/modules/users/components/user-form-drawer.tsx`, `src/modules/users/components/create-user-drawer.tsx`, `src/modules/users/components/user-actions.tsx`, `src/shared/components/ui/dialog.tsx`; modifikasi `src/modules/users/types.ts`, `src/modules/users/repository.ts`, `src/app/(root)/(app)/dashboard/users/page.tsx`, `src/modules/users/components/users-page.tsx`, `src/modules/users/components/users-data-table/columns.tsx`, `src/modules/users/components/users-data-table/data-table.tsx`, `tests/pengguna.e2e.ts`, `docs/00-plan/m3-crud-users.md`.
 - **Files Changed (phase 10):** `src/modules/users/search-params.ts`, `src/modules/users/types.ts`, `src/modules/users/repository.ts`, `src/modules/users/filter-users.ts`, `src/modules/users/components/users-data-table/users-filter-drawer.tsx` (renamed), `src/modules/users/components/users-data-table/users-featured-drawer.tsx`, `src/modules/users/components/users-page.tsx`, `src/modules/users/components/users-data-table/columns.tsx`, `tests/pengguna.e2e.ts`, `docs/00-plan/m3-crud-users.md`.
 - **Validation:** `npx tsc --noEmit` lolos; `npm run lint` lolos dengan 0 error dan 2 warning lama di `src/app/layout.tsx` (`Geist`, `Roboto`); `npm run build` lolos; `npm run test:e2e` lolos 21/21 (15 skenario `pengguna`, 5 `auth`, 1 `example`).
 - **Limitations:** Seluruh data diambil sekali per request; pagination masih client-side. Data E2E bersifat persisten di database uji. Route map di `docs/ARCHITECTURE.md` masih usang dan tidak diubah sesuai plan.

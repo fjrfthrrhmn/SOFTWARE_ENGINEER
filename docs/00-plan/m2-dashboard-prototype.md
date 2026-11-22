@@ -294,7 +294,7 @@
 - [x] `DashboardView` lama hanya membungkus `ServerErrorPanel` untuk tiga role.
 - [x] `AnimatedThemeToggler` sudah ada; `next-themes` sudah terpasang tetapi `ThemeProvider` belum dipasang.
 - [x] Primitive siap pakai: `Card`, `Button`, `ScrollArea`, `Separator`; ikon dari `reicon-react`.
-- [x] Route `/dashboard/pengguna`, `/dashboard/jadwal`, `/dashboard/mata-kuliah`, `/dashboard/materi` belum ada.
+- [x] Route `/dashboard/users`, `/dashboard/jadwal`, `/dashboard/mata-kuliah`, `/dashboard/materi` belum ada.
 
 ### 11.2 Task Understanding
 

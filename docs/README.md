@@ -26,6 +26,7 @@ Aplikasi dirancang mobile-first dengan lebar maksimum konten 640px, menggunakan 
 | Activity Diagram            | [Activity Diagram](05-activity-diagram/Activity%20-%20Diagram.webp)                        |
 | Sequence Diagram            | [SEQUANCE DIAGRAM](06-sequence-diagram/SEQUANCE%20DIAGRAM.md)                              |
 | Rencana                     | [00-plan](00-plan/)                                                                        |
+| Pengujian End-to-End        | [E2E](E2E.md)                                                                              |
 
 ## Getting Started
 

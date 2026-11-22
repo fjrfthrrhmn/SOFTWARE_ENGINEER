@@ -30,7 +30,7 @@ describe("dashboard pengguna", () => {
     await screen.getByRole("button", "Masuk").click()
     await expect(browser).toHaveURL("/onboarding")
 
-    await app.open("/dashboard/pengguna")
+    await app.open("/dashboard/users")
     await expect(screen.getByRole("heading", "Kelola Pengguna")).toBeVisible()
   })
 
@@ -126,14 +126,14 @@ describe("dashboard pengguna", () => {
 
   test("resets filters", async ({ app, screen, browser }) => {
     await app.open(
-      "/dashboard/pengguna?role=dosen&status=aktif&q=budi&sort=name-desc",
+      "/dashboard/users?role=dosen&status=aktif&q=budi&sort=name-desc",
     )
     await expect(screen.getByText("Budi Santoso, M.Kom.")).toBeVisible()
 
     await screen.getByRole("button", "Atur Filter").click()
     await screen.getByRole("button", "Reset filter").click()
 
-    await expect(browser).toHaveURL("/dashboard/pengguna")
+    await expect(browser).toHaveURL("/dashboard/users")
     await expect(screen.getByRole("combobox", "Sort by")).toContainText(
       "Nama (A–Z)",
     )
@@ -314,6 +314,6 @@ test("non-admin cannot open the users page", async ({ app, screen, browser }) =>
 
   await expect(browser).toHaveURL("/onboarding")
 
-  await app.open("/dashboard/pengguna")
+  await app.open("/dashboard/users")
   await expect(browser).toHaveURL("/unauthorized")
 })
